@@ -10,6 +10,7 @@ module ForteGateway
     LIVE_URL = "https://www.paymentsgateway.net/cgi-bin/postauth.pl"
 
     TRANSACTIONS_TYPES = {sale: 10, authorize: 11, capture: 12, credit: 13, void: 14, pre_auth: 15, balance_inquiry: 16}
+    EFT_TRANSACTIONS_TYPES = {sale: 20, authorize: 21, capture: 22, credit: 23, void: 24, pre_auth: 25, balance_inquiry: 26}
 
     attr_accessor :api_login_id,
                   :secure_transaction_key
@@ -33,59 +34,89 @@ module ForteGateway
     # transaction_type 10
 
     def purchase(amount, payment, options={})
-        cc_fields = add_credit_card credit_card(payment)
-        sale_transaction_fields = cc_fields.merge add_user_fields(amount, options)
-        data = message fields_merge(sale_transaction_fields, TRANSACTIONS_TYPES[:sale])
+        if payment[:type] == 'credit_card' || !payment[:type]
+            payment_fields = add_credit_card(credit_card(payment))
+            transaction_type = TRANSACTIONS_TYPES[:sale]
+        elsif payment[:type] == 'eft'
+            payment_fields = payment
+            transaction_type = EFT_TRANSACTIONS_TYPES[:sale]
+        end
+        data = collect_data payment_fields, transaction_type, options, amount
         commit data
     end
 
     # transaction_type 11
 
     def authorize(amount, payment, options={})
-        cc_fields = add_credit_card credit_card(payment)
-        authorize_fields = cc_fields.merge add_user_fields(amount, options)
-        data = message fields_merge(authorize_fields, TRANSACTIONS_TYPES[:authorize])
+        if payment[:type] == 'credit_card' || !payment[:type]
+            payment_fields = add_credit_card(credit_card(payment))
+            transaction_type = TRANSACTIONS_TYPES[:authorize]
+        elsif payment[:type] == 'eft'
+            payment_fields = payment
+            transaction_type = EFT_TRANSACTIONS_TYPES[:authorize]
+        end
+        data = collect_data payment_fields, transaction_type, options, amount
         commit data
     end
 
     # transaction_type 12
 
-    def capture(amount, pg_authorization_code, pg_trace_number)
-        capture_fields = {
+    def capture(amount, pg_authorization_code, pg_trace_number, payment, options={})
+        if payment[:type] == 'credit_card' || !payment[:type]
+            transaction_type = TRANSACTIONS_TYPES[:capture]
+        elsif payment[:type] == 'eft'
+            transaction_type = EFT_TRANSACTIONS_TYPES[:capture]
+        end
+        payment_fields = {
             pg_original_authorization_code: pg_authorization_code,
             pg_original_trace_number: pg_trace_number
         }
-        data = message fields_merge(capture_fields, TRANSACTIONS_TYPES[:capture])
+        data = collect_data payment_fields, transaction_type, options, amount
         commit data
     end
 
     # transaction_type 13
 
     def credit(amount, payment, options={})
-        cc_fields = add_credit_card credit_card(payment)
-        credit_fields = cc_fields.merge add_user_fields(amount, options)
-        data = message fields_merge(credit_fields, TRANSACTIONS_TYPES[:credit])
+        if payment[:type] == 'credit_card' || !payment[:type]
+            payment_fields = add_credit_card(credit_card(payment))
+            transaction_type = TRANSACTIONS_TYPES[:credit]
+        elsif payment[:type] == 'eft'
+            payment_fields = payment
+            transaction_type = EFT_TRANSACTIONS_TYPES[:credit]
+        end
+        data = collect_data payment_fields, transaction_type, options, amount
         commit data
     end
 
     # transaction_type 14
 
-    def void(pg_authorization_code, pg_trace_number)
-        void_fields = {
+    def void(pg_authorization_code, pg_trace_number ,payment ,options={})
+        if payment[:type] == 'credit_card' || !payment[:type]
+            transaction_type = TRANSACTIONS_TYPES[:void]
+        elsif payment[:type] == 'eft'
+            transaction_type = EFT_TRANSACTIONS_TYPES[:void]
+        end
+        payment_fields = {
             pg_original_authorization_code: pg_authorization_code,
             pg_original_trace_number: pg_trace_number
         }
-        data = message fields_merge(void_fields, TRANSACTIONS_TYPES[:void])
+        data = collect_data payment_fields, transaction_type, options
         commit data
     end
 
     # transaction_type 15
 
     def pre_auth(amount, pg_authorization_code, payment, options={})
-        cc_fields = add_credit_card credit_card(payment)
-        pre_auth_fields = cc_fields.merge add_user_fields(amount, options)
-        pre_auth_fields[:pg_original_authorization_code] = pg_authorization_code
-        data = message fields_merge(pre_auth_fields, TRANSACTIONS_TYPES[:pre_auth])
+        if payment[:type] == 'credit_card' || !payment[:type]
+            payment_fields = add_credit_card(credit_card(payment))
+            transaction_type = TRANSACTIONS_TYPES[:credit]
+        elsif payment[:type] == 'eft'
+            payment_fields = payment
+            transaction_type = EFT_TRANSACTIONS_TYPES[:credit]
+        end
+        payment_fields[:pg_original_authorization_code] = pg_authorization_code
+        data = collect_data payment_fields, transaction_type, options
         commit data
     end
 
@@ -96,18 +127,15 @@ module ForteGateway
     end
 
     def recurring_transaction(amount, frequency, quantity, payment, options={})
-        cc = credit_card payment
-        recurring_transaction_fields = {
+        cc = add_credit_card(credit_card(payment))
+        transaction_type = TRANSACTIONS_TYPES[:sale]
+        payment_fields = {
             pg_total_amount: amount,
             pg_billto_postal_name_company: options[:pg_billto_postal_name_company],
-            ecom_payment_card_type: cc.brand,
-            ecom_payment_card_number: cc.number,
-            ecom_payment_card_expdate_month: cc.month,
-            ecom_payment_card_expdate_year: cc.year,
             pg_schedule_frequency: RECURRING_TRANSACTION_FREQUENCIES[frequency],
             pg_schedule_quantity: quantity
         }
-        data = message fields_merge(recurring_transaction_fields, TRANSACTIONS_TYPES[:sale])
+        data = collect_data(payment_fields.merge(cc), transaction_type, options)
         commit data
     end
 
@@ -129,10 +157,17 @@ module ForteGateway
         response_hash
     end
 
+    def collect_data payment_fields, transaction_type, options, amount = nil
+        options[:pg_total_amount] = amount if amount
+        transaction_fields = payment_fields.merge options
+        basic_fields = required_fields transaction_type
+        message basic_fields.merge(transaction_fields)
+    end
+
     def message fields
         message = ''
         fields.each do |key, value|
-            message += "#{key}=#{value}&"
+            message += "#{key}=#{value}&" if key != :type
         end
         message += 'endofdata&'
     end
@@ -148,13 +183,16 @@ module ForteGateway
         response_hash
     end
 
-    def required_fields
-        {pg_merchant_id: @api_login_id, pg_password: @secure_transaction_key}
+    def required_fields transaction_type
+        {
+            pg_merchant_id: @api_login_id,
+            pg_password: @secure_transaction_key,
+            pg_transaction_type: transaction_type
+        }
     end
 
-    def add_user_fields amount, options
+    def add_user_fields options
         user_fields_hash = {}
-        user_fields_hash[:pg_total_amount] = amount
         options.each do |key, value|
             user_fields_hash[key] = value
         end
@@ -168,12 +206,6 @@ module ForteGateway
             ecom_payment_card_expdate_month: credit_card.month,
             ecom_payment_card_expdate_year: credit_card.year
         }
-    end
-
-    def fields_merge custom_fields, tr_type
-        basic_fields = required_fields
-        basic_fields[:pg_transaction_type] = tr_type
-        fields = basic_fields.merge(custom_fields)
     end
 
     def credit_card cc_options
