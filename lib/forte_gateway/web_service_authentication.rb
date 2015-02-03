@@ -31,13 +31,14 @@ module ForteGateway
 		def update_client options = {}
 			client = {
 				"MerchantID" =>  @merchant_id,
+				"ClientID" => options[:client_id],
 				"FirstName" => options[:first_name],
 				"LastName" => options[:last_name]
 			}
 			soap_client = Savon.client(wsdl: @output_url)
 			now = time_in_ticks.to_s
 			response = soap_client.call(:update_client) do |locals|
-				locals.message "ticket" => get_client_auth_ticket(now), "client" => client
+				locals.message "ticket" => get_client_auth_ticket(now),"client" => client
 			end
 			response.body
 		rescue Savon::SOAPFault => error
@@ -105,12 +106,26 @@ module ForteGateway
 			error.to_hash
 		end
 
-		def delete_payment_method
-
+		def delete_payment_method options = {}
+			soap_client = Savon.client(wsdl: @output_url)
+			now = time_in_ticks.to_s
+			response = soap_client.call(:delete_payment_method) do |locals|
+				locals.message "ticket" => get_client_auth_ticket(now), "MerchantID" =>  @merchant_id, "ClientID" => options[:client_id],  "PaymentMethodID" =>  options[:payment_method_id]
+			end
+			response.body
+		rescue Savon::SOAPFault => error
+			error.to_hash
 		end
 
-		def get_payment_method
-
+		def get_payment_method options = {}
+			soap_client = Savon.client(wsdl: @output_url)
+			now = time_in_ticks.to_s
+			response = soap_client.call(:get_payment_method) do |locals|
+				locals.message "ticket" => get_client_auth_ticket(now), "MerchantID" =>  @merchant_id, "ClientID" => options[:client_id],  "PaymentMethodID" =>  options[:payment_method_id]
+			end
+			response.body
+		rescue Savon::SOAPFault => error
+			error.to_hash
 		end
 
 		private
