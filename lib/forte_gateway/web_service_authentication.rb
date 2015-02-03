@@ -3,7 +3,7 @@ require 'savon'
 module ForteGateway
 	class WebServiceAuthentication
 		TEST_URL = "https://sandbox.paymentsgateway.net/WS/Client.wsdl"
-        LOCATION = "https://sandbox.paymentsgateway.net/WS/Client.svc"
+        LIVE_URL = "https://ws.paymentsgateway.net/Service/v1/Client.wsdl"
 
         def initialize(merchant_id = '171673', api_login_id = 'F3cnU00H5s', secure_transaction_key= 'Q870agdTS', test = true)
         	@api_login_id           = api_login_id
