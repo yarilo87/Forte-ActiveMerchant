@@ -18,14 +18,9 @@ module ForteGateway
 				"FirstName" => options[:first_name],
 				"LastName" => options[:last_name]
 			}
-			soap_client = Savon.client(wsdl: @output_url)
 			now = time_in_ticks.to_s
-			response = soap_client.call(:create_client) do |locals|
-				locals.message "ticket" => get_client_auth_ticket(now), "client" => client
-			end
-			response.body
-		rescue Savon::SOAPFault => error
-			error.to_hash
+			message = {"ticket" => get_client_auth_ticket(now), "client" => client}
+			perform_soap_request __callee__, message
 		end
 
 		def update_client options = {}
@@ -35,36 +30,21 @@ module ForteGateway
 				"FirstName" => options[:first_name],
 				"LastName" => options[:last_name]
 			}
-			soap_client = Savon.client(wsdl: @output_url)
 			now = time_in_ticks.to_s
-			response = soap_client.call(:update_client) do |locals|
-				locals.message "ticket" => get_client_auth_ticket(now),"client" => client
-			end
-			response.body
-		rescue Savon::SOAPFault => error
-			error.to_hash
+			message = {"ticket" => get_client_auth_ticket(now), "client" => client}
+			perform_soap_request __callee__, message
 		end
 
 		def delete_client options = {}
-			soap_client = Savon.client(wsdl: @output_url)
 			now = time_in_ticks.to_s
-			response = soap_client.call(:delete_client) do |locals|
-				locals.message "ticket" => get_client_auth_ticket(now),  "MerchantID" =>  @merchant_id, "ClientID" => options[:client_id]
-			end
-			response.body
-		rescue Savon::SOAPFault => error
-			error.to_hash
+			message = {"ticket" => get_client_auth_ticket(now),  "MerchantID" =>  @merchant_id, "ClientID" => options[:client_id]}
+			perform_soap_request __callee__, message
 		end
 
 		def get_client options = {}
-			soap_client = Savon.client(wsdl: @output_url)
 			now = time_in_ticks.to_s
-			response = soap_client.call(:get_client) do |locals|
-				locals.message "ticket" => get_client_auth_ticket(now), "MerchantID" =>  @merchant_id, "ClientID" => options[:client_id]
-			end
-			response.body
-		rescue Savon::SOAPFault => error
-			error.to_hash
+			message = {"ticket" => get_client_auth_ticket(now), "MerchantID" =>  @merchant_id, "ClientID" => options[:client_id]}
+			perform_soap_request __callee__, message
 		end
 
 		def create_payment_method options = {}
@@ -73,14 +53,9 @@ module ForteGateway
 			else
 				payment = add_e_check options
 			end
-			soap_client = Savon.client(wsdl: @output_url)
 			now = time_in_ticks.to_s
-			response = soap_client.call(:create_payment_method) do |locals|
-				locals.message "ticket" => get_client_auth_ticket(now), "payment" =>  payment
-			end
-			response.body
-		rescue Savon::SOAPFault => error
-			error.to_hash
+			message = {"ticket" => get_client_auth_ticket(now), "payment" =>  payment}
+			perform_soap_request __callee__, message
 		end
 
 		def update_payment_method options = {}
@@ -89,39 +64,34 @@ module ForteGateway
 			else
 				payment = add_e_check options
 			end
-			soap_client = Savon.client(wsdl: @output_url)
 			now = time_in_ticks.to_s
-			response = soap_client.call(:update_payment_method) do |locals|
-				locals.message "ticket" => get_client_auth_ticket(now), "payment" =>  payment
-			end
-			response.body
-		rescue Savon::SOAPFault => error
-			error.to_hash
+			message = {"ticket" => get_client_auth_ticket(now), "payment" =>  payment}
+			perform_soap_request __callee__, message
 		end
 
 		def delete_payment_method options = {}
-			soap_client = Savon.client(wsdl: @output_url)
 			now = time_in_ticks.to_s
-			response = soap_client.call(:delete_payment_method) do |locals|
-				locals.message "ticket" => get_client_auth_ticket(now), "MerchantID" =>  @merchant_id, "ClientID" => options[:client_id],  "PaymentMethodID" =>  options[:payment_method_id]
-			end
-			response.body
-		rescue Savon::SOAPFault => error
-			error.to_hash
+			message = {"ticket" => get_client_auth_ticket(now), "MerchantID" =>  @merchant_id, "ClientID" => options[:client_id],  "PaymentMethodID" =>  options[:payment_method_id]}
+			perform_soap_request __callee__, message
 		end
 
 		def get_payment_method options = {}
-			soap_client = Savon.client(wsdl: @output_url)
 			now = time_in_ticks.to_s
-			response = soap_client.call(:get_payment_method) do |locals|
-				locals.message "ticket" => get_client_auth_ticket(now), "MerchantID" =>  @merchant_id, "ClientID" => options[:client_id],  "PaymentMethodID" =>  options[:payment_method_id]
+			message = {"ticket" => get_client_auth_ticket(now), "MerchantID" =>  @merchant_id, "ClientID" => options[:client_id],  "PaymentMethodID" =>  options[:payment_method_id]}
+			perform_soap_request __callee__, message
+		end
+
+		private
+
+		def perform_soap_request method, message
+			soap_client = Savon.client(wsdl: @output_url)
+			response = soap_client.call(method) do |locals|
+				locals.message message
 			end
 			response.body
 		rescue Savon::SOAPFault => error
 			error.to_hash
 		end
-
-		private
 
 	    def get_client_auth_ticket now
 			key = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new("md5"),@secure_transaction_key, @api_login_id + "|" + now)
