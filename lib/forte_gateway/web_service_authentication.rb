@@ -68,15 +68,11 @@ module ForteGateway
 		end
 
 		def create_payment_method options = {}
-			payment = {
-				"MerchantID" =>  @merchant_id,
-				"ClientID" => options[:client_id],
-				"AcctHolderName" => options[:acct_holder_name],
-				"CcCardNumber" => options[:cc_card_numbed],
-				"CcExpirationDate" => options[:cc_expiration_date],
-				"CcCardType" => options[:cc_card_type],
-				"Note" => options[:note]
-	    	}
+			if options[:payment_type] == 'credit_card'
+				payment = add_credit_card options
+			else
+				payment = add_e_check options
+			end
 			soap_client = Savon.client(wsdl: @output_url)
 			now = time_in_ticks.to_s
 			response = soap_client.call(:create_payment_method) do |locals|
@@ -88,14 +84,11 @@ module ForteGateway
 		end
 
 		def update_payment_method options = {}
-			payment = {
-				"MerchantID" =>  @merchant_id,
-				"ClientID" => options[:client_id],
-				"PaymentMethodID" =>  options[:payment_method_id],
-				"AcctHolderName" => options[:acct_holder_name],
-				"CcExpirationDate" => options[:cc_expiration_date],
-				"Note" => options[:note]
-	    	}
+			if options[:payment_type] == 'credit_card'
+				payment = add_credit_card options
+			else
+				payment = add_e_check options
+			end
 			soap_client = Savon.client(wsdl: @output_url)
 			now = time_in_ticks.to_s
 			response = soap_client.call(:update_payment_method) do |locals|
@@ -143,5 +136,30 @@ module ForteGateway
 	    	ticks_since_epoch = Time.utc(0001,01,01).to_i * 10000000
 	    	Time.now.to_i * 10000000 + Time.now.nsec / 100 - ticks_since_epoch
 	    end
+
+	    def add_e_check options = {}
+			{
+				"MerchantID" =>  @merchant_id,
+				"ClientID" => options[:client_id],
+				"AcctHolderName" => options[:acct_holder_name],
+				"EcAccountNumber" => options[:ecom_payment_check_account],
+				"EcAccountTRN" => options[:ecom_payment_check_trn],
+				"EcAccountType" => options[:ecom_payment_check_account_type]
+			}
+	    end
+
+	    def add_credit_card options = {}
+			payment = {
+				"MerchantID" =>  @merchant_id,
+				"ClientID" => options[:client_id]
+			}
+			payment["PaymentMethodID"] = options[:payment_method_id] if options[:payment_method_id]
+			payment["AcctHolderName"] = options[:acct_holder_name]
+			payment["CcCardNumber"] = options[:cc_card_numbed] if options[:cc_card_numbed]
+			payment["CcExpirationDate"] = options[:cc_expiration_date] if options[:cc_expiration_date]
+			payment["CcCardType"] = options[:cc_card_type] if options[:cc_card_type]
+			payment["Note"] = options[:note] if options[:note]
+			payment
+		end
 	end
 end

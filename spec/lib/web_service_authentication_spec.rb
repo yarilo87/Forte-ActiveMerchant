@@ -95,11 +95,15 @@ describe ForteGateway do
     let(:client_id) {
       subject.create_client(options_for_payment_method)[:create_client_response][:create_client_result]
     }
-    let(:output_for_correct) {
-      subject.create_payment_method(payment)
+    let(:output_for_correct_credit_card_payment) {
+      subject.create_payment_method(credit_card_payment)
     }
-    let(:payment) {
+    let(:output_for_correct_e_check_payment) {
+      subject.create_payment_method(e_check_payment)
+    }
+    let(:credit_card_payment) {
       {
+        payment_type: 'credit_card',
         acct_holder_name: 'John Black',
         cc_expiration_date:  '201609',
         cc_card_type:  "VISA",
@@ -107,9 +111,20 @@ describe ForteGateway do
         client_id: client_id
       }
     }
-
-    it 'gets a successful response' do
-      expect(output_for_correct[:create_payment_method_response][:create_payment_method_result]).to be
+    let(:e_check_payment) {
+      {
+        acct_holder_name: 'John Black',
+        ecom_payment_check_account: "987654322",
+        ecom_payment_check_trn: "021000021",
+        ecom_payment_check_account_type: "CHECKING",
+        client_id: client_id
+      }
+    }
+    it 'gets a successful response for correct credit card payment' do
+      expect(output_for_correct_credit_card_payment[:create_payment_method_response][:create_payment_method_result]).to be
+    end
+    it 'gets a successful response for correct echeck payment' do
+      expect(output_for_correct_e_check_payment[:create_payment_method_response][:create_payment_method_result]).to be
     end
   end
   describe '#update_payment_method' do
@@ -118,8 +133,9 @@ describe ForteGateway do
         first_name: "Jack", last_name: "Foster"
       }
     }
-    let(:payment) {
+    let(:credit_card_payment) {
       {
+        payment_type: 'credit_card',
         acct_holder_name: 'Jack Foster',
         cc_expiration_date:  '201609',
         cc_card_type:  "VISA",
@@ -131,22 +147,22 @@ describe ForteGateway do
       subject.create_client(options_for_payment_method)[:create_client_response][:create_client_result]
     }
     let(:payment_method_id) { 
-      subject.create_payment_method(payment)[:create_payment_method_response][:create_payment_method_result]
+      subject.create_payment_method(credit_card_payment)[:create_payment_method_response][:create_payment_method_result]
     }
     let(:output_for_correct) { 
       subject.update_payment_method(update_payment)
     }
     let(:update_payment) {
       {
+        payment_type: 'credit_card',
         acct_holder_name: 'Jack Foster',
         cc_expiration_date:  '201712',
         client_id: client_id,
         payment_method_id: payment_method_id
       }
     }
-
     it 'gets a successful response' do
-      expect(output_for_correct[:update_payment_method_response][:update_payment_method_result]).to be
+      expect(output_for_correct[:update_payment_method_response][:update_payment_method_result]).to eq payment_method_id
     end
   end
   describe '#delete_payment_method' do
@@ -157,6 +173,7 @@ describe ForteGateway do
     }
     let(:payment) {
       {
+        payment_type: 'credit_card',
         acct_holder_name: 'Jack Foster',
         cc_expiration_date:  '201609',
         cc_card_type:  "VISA",
@@ -186,6 +203,7 @@ describe ForteGateway do
     }
     let(:payment) {
       {
+        payment_type: 'credit_card',
         acct_holder_name: 'Jack Foster',
         cc_expiration_date:  '201609',
         cc_card_type:  "VISA",
