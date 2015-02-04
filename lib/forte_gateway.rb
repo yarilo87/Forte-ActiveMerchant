@@ -33,18 +33,30 @@ module ForteGateway
     # transaction_type 10
 
     def purchase(amount, payment, options={})
-        cc_fields = add_credit_card credit_card(payment)
-        sale_transaction_fields = cc_fields.merge add_user_fields(amount, options)
-        data = message fields_merge(sale_transaction_fields, TRANSACTIONS_TYPES[:sale])
+        payment_fields = {}
+        if payment[:pg_client_id] || payment[:pg_payment_method_id]
+            payment_fields[:pg_client_id] = payment[:pg_client_id] if payment[:pg_client_id]
+            payment_fields[:pg_payment_method_id] = payment[:pg_payment_method_id] if payment[:pg_payment_method_id]
+        else
+            payment_fields = add_credit_card credit_card(payment)
+        end
+        payment_fields.merge! add_user_fields(amount, options)
+        data = message fields_merge(payment_fields, TRANSACTIONS_TYPES[:sale])
         commit data
     end
 
     # transaction_type 11
 
     def authorize(amount, payment, options={})
-        cc_fields = add_credit_card credit_card(payment)
-        authorize_fields = cc_fields.merge add_user_fields(amount, options)
-        data = message fields_merge(authorize_fields, TRANSACTIONS_TYPES[:authorize])
+        payment_fields = {}
+        if payment[:pg_client_id] || payment[:pg_payment_method_id]
+            payment_fields[:pg_client_id] = payment[:pg_client_id] if payment[:pg_client_id]
+            payment_fields[:pg_payment_method_id] = payment[:pg_payment_method_id] if payment[:pg_payment_method_id]
+        else
+            payment_fields = add_credit_card credit_card(payment)
+        end
+        payment_fields.merge! add_user_fields(amount, options)
+        data = message fields_merge(payment_fields, TRANSACTIONS_TYPES[:authorize])
         commit data
     end
 
@@ -62,9 +74,15 @@ module ForteGateway
     # transaction_type 13
 
     def credit(amount, payment, options={})
-        cc_fields = add_credit_card credit_card(payment)
-        credit_fields = cc_fields.merge add_user_fields(amount, options)
-        data = message fields_merge(credit_fields, TRANSACTIONS_TYPES[:credit])
+        payment_fields = {}
+        if payment[:pg_client_id] || payment[:pg_payment_method_id]
+            payment_fields[:pg_client_id] = payment[:pg_client_id] if payment[:pg_client_id]
+            payment_fields[:pg_payment_method_id] = payment[:pg_payment_method_id] if payment[:pg_payment_method_id]
+        else
+            payment_fields = add_credit_card credit_card(payment)
+        end
+        payment_fields.merge! add_user_fields(amount, options)
+        data = message fields_merge(payment_fields, TRANSACTIONS_TYPES[:credit])
         commit data
     end
 
@@ -82,10 +100,16 @@ module ForteGateway
     # transaction_type 15
 
     def pre_auth(amount, pg_authorization_code, payment, options={})
-        cc_fields = add_credit_card credit_card(payment)
-        pre_auth_fields = cc_fields.merge add_user_fields(amount, options)
-        pre_auth_fields[:pg_original_authorization_code] = pg_authorization_code
-        data = message fields_merge(pre_auth_fields, TRANSACTIONS_TYPES[:pre_auth])
+        payment_fields = {}
+        if payment[:pg_client_id] || payment[:pg_payment_method_id]
+            payment_fields[:pg_client_id] = payment[:pg_client_id] if payment[:pg_client_id]
+            payment_fields[:pg_payment_method_id] = payment[:pg_payment_method_id] if payment[:pg_payment_method_id]
+        else
+            payment_fields = add_credit_card credit_card(payment)
+        end
+        payment_fields[:pg_original_authorization_code] = pg_authorization_code
+        payment_fields.merge! add_user_fields(amount, options)
+        data = message fields_merge(payment_fields, TRANSACTIONS_TYPES[:pre_auth])
         commit data
     end
 
@@ -96,18 +120,17 @@ module ForteGateway
     end
 
     def recurring_transaction(amount, frequency, quantity, payment, options={})
-        cc = credit_card payment
-        recurring_transaction_fields = {
-            pg_total_amount: amount,
-            pg_billto_postal_name_company: options[:pg_billto_postal_name_company],
-            ecom_payment_card_type: cc.brand,
-            ecom_payment_card_number: cc.number,
-            ecom_payment_card_expdate_month: cc.month,
-            ecom_payment_card_expdate_year: cc.year,
-            pg_schedule_frequency: RECURRING_TRANSACTION_FREQUENCIES[frequency],
-            pg_schedule_quantity: quantity
-        }
-        data = message fields_merge(recurring_transaction_fields, TRANSACTIONS_TYPES[:sale])
+        payment_fields = {}
+        if payment[:pg_client_id] || payment[:pg_payment_method_id]
+            payment_fields[:pg_client_id] = payment[:pg_client_id] if payment[:pg_client_id]
+            payment_fields[:pg_payment_method_id] = payment[:pg_payment_method_id] if payment[:pg_payment_method_id]
+        else
+            payment_fields = add_credit_card credit_card(payment)
+        end
+        payment_fields[:pg_schedule_frequency] = RECURRING_TRANSACTION_FREQUENCIES[frequency]
+        payment_fields[:pg_schedule_quantity] = quantity
+        payment_fields.merge! add_user_fields(amount, options)
+        data = message fields_merge(payment_fields, TRANSACTIONS_TYPES[:sale])
         commit data
     end
 
