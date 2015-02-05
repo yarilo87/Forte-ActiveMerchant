@@ -6,6 +6,7 @@ module ForteGateway
         LIVE_URL = "https://ws.paymentsgateway.net/Service/v1/Client.wsdl"
 
         CARD_TYPES = {visa: "VISA", master: "MAST", american_express: "AMER", discover: "DISC", diners_club: "DINE", jcb: "JCB"}
+        E_CHECK_TYPES = {checking: "CHECKING", savings: "SAVINGS"}
 
         def initialize(merchant_id = '171673', api_login_id = 'F3cnU00H5s', secure_transaction_key= 'Q870agdTS', test = true)
         	@api_login_id           = api_login_id
@@ -60,6 +61,11 @@ module ForteGateway
 			perform_soap_request __callee__, message
 		end
 
+		# update_payment_method updates payment details
+
+		# for credit card payment, credit card number cannot be updated
+		# for eCheck payment,eCheck account number and account TRN cannot be updated
+
 		def update_payment_method options = {}
 			if options[:payment_type] == 'credit_card'
 				payment = add_credit_card options
@@ -110,14 +116,16 @@ module ForteGateway
 	    end
 
 	    def add_e_check options = {}
-			{
+			payment = {
 				"MerchantID" =>  @merchant_id,
 				"ClientID" => options[:client_id],
-				"AcctHolderName" => options[:acct_holder_name],
-				"EcAccountNumber" => options[:ecom_payment_check_account],
-				"EcAccountTRN" => options[:ecom_payment_check_trn],
-				"EcAccountType" => options[:ecom_payment_check_account_type]
 			}
+			payment["PaymentMethodID"] = options[:payment_method_id] if options[:payment_method_id]
+			payment["AcctHolderName"] = options[:acct_holder_name] if options[:acct_holder_name]
+			payment["EcAccountNumber"] = options[:ecom_payment_check_account] if options[:ecom_payment_check_account]
+			payment["EcAccountTRN"] = options[:ecom_payment_check_trn] if options[:ecom_payment_check_trn]
+			payment["EcAccountType"] = E_CHECK_TYPES[options[:ecom_payment_check_account_type]] if options[:ecom_payment_check_account_type]
+			payment
 	    end
 
 	    def add_credit_card options = {}
