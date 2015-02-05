@@ -5,6 +5,8 @@ module ForteGateway
 		TEST_URL = "https://sandbox.paymentsgateway.net/WS/Client.wsdl"
         LIVE_URL = "https://ws.paymentsgateway.net/Service/v1/Client.wsdl"
 
+        CARD_TYPES = {visa: "VISA", master: "MAST", american_express: "AMER", discover: "DISC", diners_club: "DINE", jcb: "JCB"}
+
         def initialize(merchant_id = '171673', api_login_id = 'F3cnU00H5s', secure_transaction_key= 'Q870agdTS', test = true)
         	@api_login_id           = api_login_id
         	@merchant_id = merchant_id
@@ -127,7 +129,7 @@ module ForteGateway
 			payment["AcctHolderName"] = options[:acct_holder_name]
 			payment["CcCardNumber"] = options[:cc_card_numbed] if options[:cc_card_numbed]
 			payment["CcExpirationDate"] = options[:cc_expiration_date] if options[:cc_expiration_date]
-			payment["CcCardType"] = options[:cc_card_type] if options[:cc_card_type]
+			payment["CcCardType"] = CARD_TYPES[options[:cc_card_type]] if options[:cc_card_type]
 			payment["Note"] = options[:note] if options[:note]
 			payment
 		end

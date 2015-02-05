@@ -106,8 +106,8 @@ describe ForteGateway do
         payment_type: 'credit_card',
         acct_holder_name: 'John Black',
         cc_expiration_date:  '201609',
-        cc_card_type:  "VISA",
-        cc_card_numbed:  '4111111111111111',
+        cc_card_type:  :master,
+        cc_card_numbed:  '5555555555554444',
         client_id: client_id
       }
     }
@@ -138,7 +138,7 @@ describe ForteGateway do
         payment_type: 'credit_card',
         acct_holder_name: 'Jack Foster',
         cc_expiration_date:  '201609',
-        cc_card_type:  "VISA",
+        cc_card_type:  :visa,
         cc_card_numbed:  '4111111111111111',
         client_id: client_id
       }
@@ -176,7 +176,7 @@ describe ForteGateway do
         payment_type: 'credit_card',
         acct_holder_name: 'Jack Foster',
         cc_expiration_date:  '201609',
-        cc_card_type:  "VISA",
+        cc_card_type:  :visa,
         cc_card_numbed:  '4111111111111111',
         client_id: client_id
       }
@@ -206,8 +206,8 @@ describe ForteGateway do
         payment_type: 'credit_card',
         acct_holder_name: 'Jack Foster',
         cc_expiration_date:  '201609',
-        cc_card_type:  "VISA",
-        cc_card_numbed:  '4111111111111111',
+        cc_card_type:  :american_express,
+        cc_card_numbed:  '378282246310005',
         client_id: client_id
       }
     }
