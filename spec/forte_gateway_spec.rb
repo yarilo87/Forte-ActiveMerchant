@@ -202,8 +202,27 @@ describe ForteGateway do
        expect(output_for_incorrect[:pg_response_code]).not_to eq("A01")
     end
 
-	it 'gets the right error response code if card details missing' do
+	  it 'gets the right error response code if card details missing' do
        expect(output_for_incorrect[:pg_response_code]).to eq("F01")
+    end
+  end
+  describe '#recurring_suspend' do
+
+    let(:pg_trace_number) { 
+      subject.recurring_transaction(450,:monthly,12,25, "6/1/2016", payment, options)[:pg_trace_number]
+    }
+    let(:output_for_correct) { 
+      subject.recurring_suspend(pg_trace_number)
+    }
+    let(:output_for_incorrect) { 
+      subject.recurring_suspend("abc")
+    }
+
+    it 'gets a successful response' do
+      expect(output_for_correct).to eq("A01")
+    end
+    it 'gets an error response' do
+       expect(output_for_incorrect[:pg_response_code]).to eq("F04")
     end
   end
 end
