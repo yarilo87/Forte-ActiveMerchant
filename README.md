@@ -77,8 +77,7 @@ Test is optional argument for test mode.
 gateway =  ActiveMerchant::Billing::ForteGateway.new({login: '171673', password: 'p48iJT4oB', test: true}) }
 
 ```
-Methods to process transactions: #purchase, n#authorize, #capture, #credit, #void, #pre_auth, #recurring_transaction, #recurring_suspend, #recurring_activate,
-#recurring_recur
+Methods to process transactions: #purchase, #authorize, #capture, #credit, #void, #pre_auth, #recurring_transaction, #recurring_suspend, #recurring_activate,#recurring_recur
 
 ```ruby
 
@@ -105,7 +104,20 @@ gateway.credit(2.40, pg_payment_method_id: payment_method_id)
 
 ```
 
-In case there was a error, method return hash with pg_response_code and pg_response_description with a description of an error.
+In case there was a error, method return hash with pg_response_code and pg_response_description with a description of an error:
+
+```ruby
+
+{
+	:pg_merchant_id => "171673",
+    :pg_response_code => "U11",
+    :pg_response_description => "SCHEDULED TRANS NOT FOUND",
+    :pg_response_type => "D",
+    :pg_trace_number => "627B5DA4-36F2-498E-ACD4-AA32769777C0",
+    :pg_transaction_type => "40"
+}
+
+```
 
 
 ## Contributing
