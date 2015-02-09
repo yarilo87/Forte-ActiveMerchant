@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ForteGateway do
+describe ActiveMerchant::Billing::ForteGateway do
   subject { ActiveMerchant::Billing::ForteGateway.new({login: '171673', password: 'p48iJT4oB', test: true}) }
   let(:payment) {
   	{
@@ -29,10 +29,10 @@ describe ForteGateway do
     }
   }
   let(:client_id) {
-    ForteGateway::WebServiceAuthentication.new().create_client(create_client_options)[:create_client_response][:create_client_result]
+    ActiveMerchant::Billing::WebServiceAuthentication.new(merchant_id: '171673', api_login_id: 'F3cnU00H5s', secure_transaction_key: 'Q870agdTS', test: true).create_client(create_client_options)[:create_client_response][:create_client_result]
   }
   let(:payment_method) {
-    ForteGateway::WebServiceAuthentication.new().create_payment_method(payment_with_tokenization)[:create_payment_method_response][:create_payment_method_result]
+    ActiveMerchant::Billing::WebServiceAuthentication.new(merchant_id: '171673', api_login_id: 'F3cnU00H5s', secure_transaction_key: 'Q870agdTS', test: true).create_payment_method(payment_with_tokenization)[:create_payment_method_response][:create_payment_method_result]
   }
   let(:options) {
     {
