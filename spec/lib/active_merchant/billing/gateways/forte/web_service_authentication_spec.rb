@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe ForteGateway do
-  subject { ForteGateway::WebServiceAuthentication.new() }
+describe ActiveMerchant::Billing::WebServiceAuthentication do
+  subject {  ActiveMerchant::Billing::WebServiceAuthentication.new(merchant_id: '171673', api_login_id: 'F3cnU00H5s', secure_transaction_key: 'Q870agdTS', test: true) }
   let(:options) {
   	{
 	  	first_name: "Bob", last_name: "Brown"

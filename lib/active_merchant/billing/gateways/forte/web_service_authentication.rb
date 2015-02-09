@@ -1,23 +1,24 @@
 require 'savon'
+require 'active_merchant'
 
-module ForteGateway
-	class WebServiceAuthentication
-		TEST_URL = "https://sandbox.paymentsgateway.net/WS/Client.wsdl"
-        LIVE_URL = "https://ws.paymentsgateway.net/Service/v1/Client.wsdl"
+module ActiveMerchant #:nodoc:
+  module Billing #:nodoc:
+    # This module is included in both PaypalGateway and PaypalExpressGateway
+    class WebServiceAuthentication < Gateway
+		self.test_url = "https://sandbox.paymentsgateway.net/WS/Client.wsdl"
+        self.live_url = "https://ws.paymentsgateway.net/Service/v1/Client.wsdl"
 
         CARD_TYPES = {visa: "VISA", master: "MAST", american_express: "AMER", discover: "DISC", diners_club: "DINE", jcb: "JCB"}
         E_CHECK_TYPES = {checking: "CHECKING", savings: "SAVINGS"}
 
-        def initialize(merchant_id = '171673', api_login_id = 'F3cnU00H5s', secure_transaction_key= 'Q870agdTS', test = true)
-        	@api_login_id           = api_login_id
-        	@merchant_id = merchant_id
-        	@secure_transaction_key = secure_transaction_key
-        	@output_url = test ? TEST_URL : LIVE_URL
-    	end
+        def initialize(options = {})
+            requires!(options, :merchant_id, :api_login_id, :secure_transaction_key)
+            super
+        end
 
 	    def create_client options = {}
 			client = {
-				"MerchantID" =>  @merchant_id,
+				"MerchantID" =>  @options[:merchant_id],
 				"FirstName" => options[:first_name],
 				"LastName" => options[:last_name]
 			}
@@ -28,7 +29,7 @@ module ForteGateway
 
 		def update_client options = {}
 			client = {
-				"MerchantID" =>  @merchant_id,
+				"MerchantID" =>  @options[:merchant_id],
 				"ClientID" => options[:client_id],
 				"FirstName" => options[:first_name],
 				"LastName" => options[:last_name]
@@ -40,13 +41,13 @@ module ForteGateway
 
 		def delete_client options = {}
 			now = time_in_ticks.to_s
-			message = {"ticket" => get_client_auth_ticket(now),  "MerchantID" =>  @merchant_id, "ClientID" => options[:client_id]}
+			message = {"ticket" => get_client_auth_ticket(now),  "MerchantID" =>  @options[:merchant_id], "ClientID" => options[:client_id]}
 			perform_soap_request __callee__, message
 		end
 
 		def get_client options = {}
 			now = time_in_ticks.to_s
-			message = {"ticket" => get_client_auth_ticket(now), "MerchantID" =>  @merchant_id, "ClientID" => options[:client_id]}
+			message = {"ticket" => get_client_auth_ticket(now), "MerchantID" =>  @options[:merchant_id], "ClientID" => options[:client_id]}
 			perform_soap_request __callee__, message
 		end
 
@@ -79,20 +80,21 @@ module ForteGateway
 
 		def delete_payment_method options = {}
 			now = time_in_ticks.to_s
-			message = {"ticket" => get_client_auth_ticket(now), "MerchantID" =>  @merchant_id, "ClientID" => options[:client_id],  "PaymentMethodID" =>  options[:payment_method_id]}
+			message = {"ticket" => get_client_auth_ticket(now), "MerchantID" =>  @options[:merchant_id], "ClientID" => options[:client_id],  "PaymentMethodID" =>  options[:payment_method_id]}
 			perform_soap_request __callee__, message
 		end
 
 		def get_payment_method options = {}
 			now = time_in_ticks.to_s
-			message = {"ticket" => get_client_auth_ticket(now), "MerchantID" =>  @merchant_id, "ClientID" => options[:client_id],  "PaymentMethodID" =>  options[:payment_method_id]}
+			message = {"ticket" => get_client_auth_ticket(now), "MerchantID" =>  @options[:merchant_id], "ClientID" => options[:client_id],  "PaymentMethodID" =>  options[:payment_method_id]}
 			perform_soap_request __callee__, message
 		end
 
 		private
 
 		def perform_soap_request method, message
-			soap_client = Savon.client(wsdl: @output_url)
+			url = test? ? self.test_url : self.live_url
+			soap_client = Savon.client(wsdl: url)
 			response = soap_client.call(method) do |locals|
 				locals.message message
 			end
@@ -102,9 +104,9 @@ module ForteGateway
 		end
 
 	    def get_client_auth_ticket now
-			key = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new("md5"),@secure_transaction_key, @api_login_id + "|" + now)
+			key = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new("md5"),@options[:secure_transaction_key], @options[:api_login_id] + "|" + now)
 			{
-				"APILoginID" => @api_login_id,
+				"APILoginID" =>  @options[:api_login_id],
 				"TSHash" =>  key,
 				"UTCTime" => now
 			}
@@ -117,7 +119,7 @@ module ForteGateway
 
 	    def add_e_check options = {}
 			payment = {
-				"MerchantID" =>  @merchant_id,
+				"MerchantID" =>   @options[:merchant_id],
 				"ClientID" => options[:client_id],
 			}
 			payment["PaymentMethodID"] = options[:payment_method_id] if options[:payment_method_id]
@@ -130,7 +132,7 @@ module ForteGateway
 
 	    def add_credit_card options = {}
 			payment = {
-				"MerchantID" =>  @merchant_id,
+				"MerchantID" =>  @options[:merchant_id],
 				"ClientID" => options[:client_id]
 			}
 			payment["PaymentMethodID"] = options[:payment_method_id] if options[:payment_method_id]
@@ -142,4 +144,5 @@ module ForteGateway
 			payment
 		end
 	end
+  end
 end

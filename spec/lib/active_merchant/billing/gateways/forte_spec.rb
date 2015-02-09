@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ForteGateway do
-  subject { ForteGateway::Forte.new() }
+  subject { ActiveMerchant::Billing::ForteGateway.new({login: '171673', password: 'p48iJT4oB', test: true}) }
   let(:payment) {
   	{
 		  first_name: 'Steve',
@@ -189,10 +189,10 @@ describe ForteGateway do
   describe '#recurring_transaction' do
 
     let(:output_for_correct) { 
-    	subject.recurring_transaction(333,:monthly,12, payment, options) 
+    	subject.recurring_transaction(333,:monthly,12,25, "6/1/2016", payment, options) 
     }
     let(:output_for_incorrect) { 
-    	subject.recurring_transaction(333,:monthly,12, incorrect_payment, options) 
+    	subject.recurring_transaction(333,:monthly,12,25, "6/1/2016", incorrect_payment, options) 
     }
 
     it 'gets a successful response' do

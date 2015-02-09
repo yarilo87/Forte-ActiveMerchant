@@ -1,2 +1,2 @@
-require 'forte_gateway'
-require 'forte_gateway/web_service_authentication'
+require 'active_merchant/billing/gateways/forte'
+require 'active_merchant/billing/gateways/forte/web_service_authentication'
