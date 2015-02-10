@@ -96,11 +96,23 @@ transaction_details = {
 	number:  '4111111111111111'
 }
 
-gateway.purchase(2.40, transaction_details)
+options = { ecom_billto_postal_name_first: "Yaroslav", ecom_billto_postal_name_last: "Keda"}
+
+gateway.purchase(2.40, transaction_details, options)
 
 #Example for a credit transaction with payment_method_id token:
 
-gateway.credit(2.40, pg_payment_method_id: payment_method_id)
+gateway.credit(2.40, pg_payment_method_id: payment_method_id, options)
+
+```
+Transactions without errors return pg_authorization_code and pg_trace_number, which are used for #capture, #void and #pre_auth transactions:
+
+```ruby
+
+   auth_hash = gateway.authorize(100, transaction_details, options)
+   pg_authorization_code = auth_hash[:pg_authorization_code]
+   pg_trace_number = auth_hash[:pg_trace_number]
+   gateway.capture(100, pg_authorization_code, pg_trace_number)
 
 ```
 
