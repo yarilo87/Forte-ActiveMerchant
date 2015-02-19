@@ -112,8 +112,14 @@ module ActiveMerchant #:nodoc:
 
         # transaction_type 16
 
-        def balance_inquiry(options={})
-
+        def balance_inquiry(amount, pg_authorization_code, pg_trace_number)
+            balance_inquiry_fields = {
+                pg_total_amount: amount,
+                pg_original_authorization_code: pg_authorization_code,
+                pg_original_trace_number: pg_trace_number
+            }
+            data = message fields_merge(balance_inquiry_fields, TRANSACTIONS_TYPES[:balance_inquiry])
+            commit data
         end
 
         def recurring_transaction(amount, frequency, quantity, schedule_recurring_amount,schedule_start_date, payment, options={})

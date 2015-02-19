@@ -3,14 +3,14 @@ require 'spec_helper'
 describe ActiveMerchant::Billing::ForteGateway do
   subject { ActiveMerchant::Billing::ForteGateway.new({login: '171673', password: 'p48iJT4oB', test: true}) }
   let(:payment) {
-  	{
-		  first_name: 'Steve',
-		  last_name:  'Smith',
-		  month: '9',
-		  year:  '2016',
-		  brand:  'visa',
-		  number:  '4111111111111111'
-	  }
+    {
+      first_name: 'Steve',
+      last_name:  'Smith',
+      month: '9',
+      year:  '2016',
+      brand:  'visa',
+      number:  '4111111111111111'
+    }
   }
   let(:create_client_options) {
     {
@@ -38,17 +38,17 @@ describe ActiveMerchant::Billing::ForteGateway do
     {
       ecom_billto_postal_name_first: "Yaroslav", ecom_billto_postal_name_last: "Keda"
     }
-	}
+  }
   let(:incorrect_payment) {
-  	{}
+    {}
   }
   describe '#purchase' do
-  	
+    
     let(:output_for_correct) { 
-    	subject.purchase(0.40, payment, options)
+      subject.purchase(0.40, payment, options)
     }
     let(:output_for_incorrect) { 
-    	subject.purchase(0.40, incorrect_payment, options) 
+      subject.purchase(0.40, incorrect_payment, options) 
     }
 
     it 'gets a successful response for credit card payment' do
@@ -78,10 +78,10 @@ describe ActiveMerchant::Billing::ForteGateway do
   describe '#authorize' do
 
     let(:output_for_correct) { 
-    	subject.authorize(5.6, payment, options) 
+      subject.authorize(5.6, payment, options) 
     }
     let(:output_for_incorrect) { 
-    	subject.authorize(5.6, incorrect_payment, options) 
+      subject.authorize(5.6, incorrect_payment, options) 
     }
 
     it 'gets a successful response' do
@@ -96,17 +96,17 @@ describe ActiveMerchant::Billing::ForteGateway do
   end
   describe '#capture' do
     let(:auth_hash) {
-    	subject.authorize(100, payment, options) 
+      subject.authorize(100, payment, options) 
     }
     let(:output_for_correct) {
       pg_authorization_code = auth_hash[:pg_authorization_code]
       pg_trace_number = auth_hash[:pg_trace_number]
-    	subject.capture(100,pg_authorization_code, pg_trace_number) 
+      subject.capture(100,pg_authorization_code, pg_trace_number) 
     }
     let(:output_for_incorrect) { 
-    	pg_authorization_code = auth_hash[:pg_authorization_code]
+      pg_authorization_code = auth_hash[:pg_authorization_code]
         pg_trace_number = ""
-    	subject.capture(100,pg_authorization_code, pg_trace_number) 
+      subject.capture(100,pg_authorization_code, pg_trace_number) 
     }
 
     it 'gets a successful response' do
@@ -121,17 +121,17 @@ describe ActiveMerchant::Billing::ForteGateway do
   end
   describe '#void' do
     let(:auth_hash) {
-    	subject.authorize(100, payment, options) 
+      subject.authorize(100, payment, options) 
     }
     let(:output_for_correct) {
         pg_authorization_code = auth_hash[:pg_authorization_code]
         pg_trace_number = auth_hash[:pg_trace_number]
-    	subject.void(pg_authorization_code, pg_trace_number) 
+      subject.void(pg_authorization_code, pg_trace_number) 
     }
     let(:output_for_incorrect) { 
-    	pg_authorization_code = auth_hash[:pg_authorization_code]
+      pg_authorization_code = auth_hash[:pg_authorization_code]
         pg_trace_number = ""
-    	subject.void(pg_authorization_code, pg_trace_number) 
+      subject.void(pg_authorization_code, pg_trace_number) 
     }
 
     it 'gets a successful response' do
@@ -146,15 +146,15 @@ describe ActiveMerchant::Billing::ForteGateway do
   end
   describe '#pre_auth' do
     let(:auth_hash) {
-    	subject.authorize(100, payment, options) 
+      subject.authorize(100, payment, options) 
     }
     let(:output_for_correct) {
         pg_authorization_code = auth_hash[:pg_authorization_code]
-    	subject.pre_auth(100, pg_authorization_code, payment,options) 
+      subject.pre_auth(100, pg_authorization_code, payment,options) 
     }
     let(:output_for_incorrect) { 
-    	pg_authorization_code = ''
-    	subject.pre_auth(100, pg_authorization_code, incorrect_payment,options) 
+      pg_authorization_code = ''
+      subject.pre_auth(100, pg_authorization_code, incorrect_payment,options) 
     }
 
     it 'gets a successful response' do
@@ -170,10 +170,35 @@ describe ActiveMerchant::Billing::ForteGateway do
   describe '#credit' do
 
     let(:output_for_correct) { 
-    	subject.credit(20, payment, options) 
+      subject.credit(20, payment, options) 
     }
     let(:output_for_incorrect) { 
-    	subject.credit(20, incorrect_payment, options) 
+      subject.credit(20, incorrect_payment, options) 
+    }
+
+    it 'gets a successful response' do
+      expect(output_for_correct[:pg_response_code]).to eq("A01")
+    end
+    it 'gets an error response' do
+       expect(output_for_incorrect[:pg_response_code]).not_to eq("A01")
+    end
+    it 'gets the right error response code if card details missing' do
+       expect(output_for_incorrect[:pg_response_code]).to eq("F01")
+    end
+  end
+  describe '#balance_inquiry' do
+    let(:auth_hash) {
+      subject.authorize(100, payment, options)
+    }
+    let(:output_for_correct) {
+      pg_authorization_code = auth_hash[:pg_authorization_code]
+      pg_trace_number = auth_hash[:pg_trace_number]
+      subject.balance_inquiry(100, pg_authorization_code, pg_trace_number)
+    }
+    let(:output_for_incorrect) {
+      pg_authorization_code = ''
+      pg_trace_number = ''
+      subject.balance_inquiry(100, pg_authorization_code, pg_trace_number)
     }
 
     it 'gets a successful response' do
@@ -189,10 +214,10 @@ describe ActiveMerchant::Billing::ForteGateway do
   describe '#recurring_transaction' do
 
     let(:output_for_correct) { 
-    	subject.recurring_transaction(333,:monthly,12,25, "6/1/2016", payment, options) 
+      subject.recurring_transaction(333,:monthly,12,25, "6/1/2016", payment, options) 
     }
     let(:output_for_incorrect) { 
-    	subject.recurring_transaction(333,:monthly,12,25, "6/1/2016", incorrect_payment, options) 
+      subject.recurring_transaction(333,:monthly,12,25, "6/1/2016", incorrect_payment, options) 
     }
 
     it 'gets a successful response' do
@@ -202,27 +227,15 @@ describe ActiveMerchant::Billing::ForteGateway do
        expect(output_for_incorrect[:pg_response_code]).not_to eq("A01")
     end
 
-	  it 'gets the right error response code if card details missing' do
+    it 'gets the right error response code if card details missing' do
        expect(output_for_incorrect[:pg_response_code]).to eq("F01")
     end
   end
   describe '#recurring_suspend' do
 
-    let(:pg_trace_number) { 
-      subject.recurring_transaction(450,:monthly,12,25, "6/1/2016", payment, options)[:pg_trace_number]
-    }
-    let(:output_for_correct) { 
-      subject.recurring_suspend(pg_trace_number)
-    }
-    let(:output_for_incorrect) { 
-      subject.recurring_suspend("abc")
-    }
-
     it 'gets a successful response' do
-      expect(output_for_correct).to eq("A01")
-    end
-    it 'gets an error response' do
-       expect(output_for_incorrect[:pg_response_code]).to eq("F04")
+      pg_trace_number = subject.recurring_transaction(550,:monthly,12,25, "6/1/2016", payment, options)[:pg_trace_number]
+      expect(subject.recurring_suspend(pg_trace_number)).to eq("A01")
     end
   end
 end
