@@ -6,8 +6,8 @@ require 'forte_gateway/version'
 Gem::Specification.new do |spec|
   spec.name          = "forte_gateway"
   spec.version       = ForteGateway::VERSION
-  spec.authors       = ["Yaroslav"]
-  spec.email         = ["yarilo2008@gmail.com"]
+  spec.authors       = ["Chris Ostrowski", "Yaroslav"]
+  spec.email         = ["chris@madebyfunction.com", "yarilo2008@gmail.com"]
   spec.summary       = "Forte gateway ruby plugin for active merchant"
   spec.description   = ""
   spec.homepage      = ""
