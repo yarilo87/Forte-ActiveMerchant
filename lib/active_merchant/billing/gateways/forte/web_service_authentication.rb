@@ -102,7 +102,7 @@ module ActiveMerchant #:nodoc:
         end
 
         def get_client_auth_ticket
-       		now = time_in_ticks.to_s
+					now = time_in_ticks.to_s
           key = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("md5"), @options[:secure_transaction_key], @options[:api_login_id] + "|" + now)
           {
             "APILoginID" =>  @options[:api_login_id],
