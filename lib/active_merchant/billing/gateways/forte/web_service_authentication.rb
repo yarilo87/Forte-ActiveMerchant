@@ -102,7 +102,7 @@ module ActiveMerchant #:nodoc:
         end
 
         def get_client_auth_ticket
-        	now = time_in_ticks.to_s
+          now = time_in_ticks.to_s
           key = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("md5"), @options[:secure_transaction_key], @options[:api_login_id] + "|" + now)
           {
             "APILoginID" =>  @options[:api_login_id],
@@ -122,10 +122,10 @@ module ActiveMerchant #:nodoc:
             "ClientID" => options[:client_id],
           }
           payment["PaymentMethodID"] = options[:payment_method_id] if options[:payment_method_id]
-          payment["AcctHolderName"] = options[:acct_holder_name] if options[:acct_holder_name]
-          payment["EcAccountNumber"] = options[:ecom_payment_check_account] if options[:ecom_payment_check_account]
-          payment["EcAccountTRN"] = options[:ecom_payment_check_trn] if options[:ecom_payment_check_trn]
-          payment["EcAccountType"] = E_CHECK_TYPES[options[:ecom_payment_check_account_type]] if options[:ecom_payment_check_account_type]
+          payment["AcctHolderName"] = options[:acct_holder_name]
+          payment["EcAccountNumber"] = options[:account_number]
+          payment["EcAccountTRN"] = options[:routing_number]
+          payment["EcAccountType"] = E_CHECK_TYPES[options[:account_type]]
           payment
         end
 
