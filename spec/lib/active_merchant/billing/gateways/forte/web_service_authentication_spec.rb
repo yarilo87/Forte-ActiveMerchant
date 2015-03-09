@@ -110,7 +110,7 @@ describe ActiveMerchant::Billing::WebServiceAuthentication do
         acct_holder_name: 'John Black',
         cc_expiration_date:  '201609',
         cc_card_type:  :master,
-        cc_card_numbed:  '5555555555554444',
+        cc_card_number:  '5555555555554444',
         client_id: client_id
       }
     }
@@ -120,7 +120,7 @@ describe ActiveMerchant::Billing::WebServiceAuthentication do
         acct_holder_name: 'John Black',
         cc_expiration_date:  '201609',
         cc_card_type:  :master,
-        cc_card_numbed:  '5555555555554444'
+        cc_card_number:  '5555555555554444'
       }
     }
     let(:e_check_payment) {
@@ -154,7 +154,7 @@ describe ActiveMerchant::Billing::WebServiceAuthentication do
         acct_holder_name: 'Alex Cox',
         cc_expiration_date:  '201609',
         cc_card_type:  :visa,
-        cc_card_numbed:  '4111111111111111',
+        cc_card_number:  '4111111111111111',
         client_id: client_id
       }
     }
@@ -218,7 +218,7 @@ describe ActiveMerchant::Billing::WebServiceAuthentication do
         acct_holder_name: 'Jack Foster',
         cc_expiration_date:  '201609',
         cc_card_type:  :visa,
-        cc_card_numbed:  '4111111111111111',
+        cc_card_number:  '4111111111111111',
         client_id: client_id
       }
     }
@@ -248,7 +248,7 @@ describe ActiveMerchant::Billing::WebServiceAuthentication do
         acct_holder_name: 'Jack Foster',
         cc_expiration_date:  '201609',
         cc_card_type:  :american_express,
-        cc_card_numbed:  '378282246310005',
+        cc_card_number:  '378282246310005',
         client_id: client_id
       }
     }

@@ -24,7 +24,7 @@ describe ActiveMerchant::Billing::ForteGateway do
       acct_holder_name: 'Yaroslav Keda',
       cc_expiration_date:  '201609',
       cc_card_type:  :american_express,
-      cc_card_numbed:  '378282246310005',
+      cc_card_number:  '378282246310005',
       client_id: client_id
     }
   }

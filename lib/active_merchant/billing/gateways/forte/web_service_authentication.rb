@@ -136,7 +136,7 @@ module ActiveMerchant #:nodoc:
           }
           payment["PaymentMethodID"] = options[:payment_method_id] if options[:payment_method_id]
           payment["AcctHolderName"] = options[:acct_holder_name]
-          payment["CcCardNumber"] = options[:cc_card_numbed] if options[:cc_card_numbed]
+          payment["CcCardNumber"] = options[:cc_card_number] if options[:cc_card_number]
           payment["CcExpirationDate"] = options[:cc_expiration_date] if options[:cc_expiration_date]
           payment["CcCardType"] = CARD_TYPES[options[:cc_card_type]] if options[:cc_card_type]
           payment["Note"] = options[:note] if options[:note]
