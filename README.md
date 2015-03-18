@@ -2,6 +2,9 @@
 
 Forte gateway ActiveMerchant gateway class implementation.
 
+## WARNING
+This gateway is still in flux and the api is bound to change. Use at your own risk (or help improve it!)
+
 ## Installation
 
 Add this line to your application's Gemfile:
