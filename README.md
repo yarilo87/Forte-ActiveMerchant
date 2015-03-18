@@ -28,7 +28,7 @@ Creating WebServiceAuthentication object:
 
 ```ruby
 
-forte_authentication = ActiveMerchant::Billing::WebServiceAuthentication.new(merchant_id: '171673', api_login_id: 'F3cnU00H5s', secure_transaction_key: 'Q870agdTS', test: true)
+forte_authentication = ActiveMerchant::Billing::WebServiceAuthentication.new(merchant_id: '111111', api_login_id: 'XXXXXXXX', secure_transaction_key: 'XXXXXXXX', test: true)
 
 ```
 
@@ -124,11 +124,11 @@ In case there was a error, method return hash with pg_response_code and pg_respo
 ```ruby
 
 {
-	:pg_merchant_id => "171673",
+     :pg_merchant_id => "111111",
     :pg_response_code => "U11",
     :pg_response_description => "SCHEDULED TRANS NOT FOUND",
     :pg_response_type => "D",
-    :pg_trace_number => "627B5DA4-36F2-498E-ACD4-AA32769777C0",
+    :pg_trace_number => "627B5DA4-36F2-498E-ACD4-XXXXXXXXX",
     :pg_transaction_type => "40"
 }
 
