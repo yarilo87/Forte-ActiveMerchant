@@ -77,7 +77,7 @@ Test is optional argument for test mode.
 
 ```ruby
 
-gateway =  ActiveMerchant::Billing::ForteGateway.new({login: '171673', password: 'p48iJT4oB', test: true}) }
+gateway =  ActiveMerchant::Billing::ForteGateway.new({login: '111111', password: 'XXXXXXXX', test: true}) }
 
 ```
 Methods to process transactions: #purchase, #authorize, #capture, #credit, #void, #pre_auth, #recurring_transaction, #recurring_suspend, #recurring_activate,#recurring_recur
