@@ -28,7 +28,7 @@ Creating WebServiceAuthentication object:
 
 ```ruby
 
-forte_authentication = ActiveMerchant::Billing::WebServiceAuthentication.new(merchant_id: '111111', api_login_id: 'XXXXXXXX', secure_transaction_key: 'XXXXXXXX', test: true)
+forte_authentication = ActiveMerchant::Billing::Gateways::WebServiceAuthentication.new(merchant_id: '111111', api_login_id: 'XXXXXXXX', secure_transaction_key: 'XXXXXXXX', test: true)
 
 ```
 
