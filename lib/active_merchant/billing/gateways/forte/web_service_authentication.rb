@@ -22,7 +22,8 @@ module ActiveMerchant #:nodoc:
             "MerchantID" =>  @options[:merchant_id],
             "FirstName" => options[:first_name],
             "LastName" => options[:last_name],
-            "CompanyName" => options[:company_name]
+            "CompanyName" => options[:company_name],
+            "ConsumerID" => options[:consumer_id]
           }
           message = {"client" => client}
           perform_soap_request __callee__, message
