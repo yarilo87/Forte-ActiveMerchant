@@ -124,9 +124,9 @@ module ActiveMerchant #:nodoc:
           }
           payment["PaymentMethodID"] = options[:payment_method_id] if options[:payment_method_id]
           payment["AcctHolderName"] = options[:acct_holder_name]
-          payment["EcAccountNumber"] = options[:account_number]
-          payment["EcAccountTRN"] = options[:routing_number]
-          payment["EcAccountType"] = E_CHECK_TYPES[options[:account_type]]
+          payment["EcAccountNumber"] = options[:ecom_payment_check_account]
+          payment["EcAccountTRN"] = options[:ecom_payment_check_trn]
+          payment["EcAccountType"] = E_CHECK_TYPES[options[:ecom_payment_check_account_type]]
           payment
         end
 
