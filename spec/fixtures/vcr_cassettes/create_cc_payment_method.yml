@@ -1,0 +1,721 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://sandbox.paymentsgateway.net/WS/Client.wsdl
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Microsoft-IIS/7.5
+      Content-Type:
+      - text/xml
+      Date:
+      - Wed, 29 Apr 2015 08:16:28 GMT
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - ! '"4281fa9bf8dece1:0"'
+      Set-Cookie:
+      - X-Mapping-gbooldlg=0DBF2E22300A61A18D35B33164C4A32E;path=/
+      Last-Modified:
+      - Mon, 11 Nov 2013 16:10:59 GMT
+      X-Powered-By:
+      - ASP.NET
+      Content-Length:
+      - '27612'
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<wsdl:definitions name=\"ClientService\"
+        targetNamespace=\"https://ws.paymentsgateway.net/v1\" xmlns:wsdl=\"http://schemas.xmlsoap.org/wsdl/\"
+        xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\" xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"
+        xmlns:soapenc=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:wsam=\"http://www.w3.org/2007/05/addressing/metadata\"
+        xmlns:tns=\"https://ws.paymentsgateway.net/v1\" xmlns:wsa=\"http://schemas.xmlsoap.org/ws/2004/08/addressing\"
+        xmlns:wsp=\"http://schemas.xmlsoap.org/ws/2004/09/policy\" xmlns:wsap=\"http://schemas.xmlsoap.org/ws/2004/08/addressing/policy\"
+        xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:msc=\"http://schemas.microsoft.com/ws/2005/12/wsdl/contract\"
+        xmlns:wsaw=\"http://www.w3.org/2006/05/addressing/wsdl\" xmlns:soap12=\"http://schemas.xmlsoap.org/wsdl/soap12/\"
+        xmlns:wsa10=\"http://www.w3.org/2005/08/addressing\" xmlns:wsx=\"http://schemas.xmlsoap.org/ws/2004/09/mex\">\r\n\t<wsp:Policy
+        wsu:Id=\"WSHttpBinding_IClientService_policy\">\r\n\t\t<wsp:ExactlyOne>\r\n\t\t\t<wsp:All>\r\n\t\t\t\t<sp:TransportBinding
+        xmlns:sp=\"http://schemas.xmlsoap.org/ws/2005/07/securitypolicy\">\r\n\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t<sp:TransportToken>\r\n\t\t\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t\t\t<sp:HttpsToken
+        RequireClientCertificate=\"false\"/>\r\n\t\t\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t\t\t</sp:TransportToken>\r\n\t\t\t\t\t\t<sp:AlgorithmSuite>\r\n\t\t\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t\t\t<sp:Basic256/>\r\n\t\t\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t\t\t</sp:AlgorithmSuite>\r\n\t\t\t\t\t\t<sp:Layout>\r\n\t\t\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t\t\t<sp:Strict/>\r\n\t\t\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t\t\t</sp:Layout>\r\n\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t</sp:TransportBinding>\r\n\t\t\t\t<wsaw:UsingAddressing/>\r\n\t\t\t</wsp:All>\r\n\t\t</wsp:ExactlyOne>\r\n\t</wsp:Policy>\r\n\t<wsp:Policy
+        wsu:Id=\"BasicHttpBinding_IClientService_policy\">\r\n\t\t<wsp:ExactlyOne>\r\n\t\t\t<wsp:All>\r\n\t\t\t\t<sp:TransportBinding
+        xmlns:sp=\"http://schemas.xmlsoap.org/ws/2005/07/securitypolicy\">\r\n\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t<sp:TransportToken>\r\n\t\t\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t\t\t<sp:HttpsToken
+        RequireClientCertificate=\"false\"/>\r\n\t\t\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t\t\t</sp:TransportToken>\r\n\t\t\t\t\t\t<sp:AlgorithmSuite>\r\n\t\t\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t\t\t<sp:Basic256/>\r\n\t\t\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t\t\t</sp:AlgorithmSuite>\r\n\t\t\t\t\t\t<sp:Layout>\r\n\t\t\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t\t\t<sp:Strict/>\r\n\t\t\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t\t\t</sp:Layout>\r\n\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t</sp:TransportBinding>\r\n\t\t\t</wsp:All>\r\n\t\t</wsp:ExactlyOne>\r\n\t</wsp:Policy>\r\n\t<wsdl:types>\r\n\t\t<xsd:schema
+        elementFormDefault=\"qualified\" targetNamespace=\"https://ws.paymentsgateway.net/v1\">\r\n\t\t\t<xsd:element
+        name=\"createClient\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"client\" type=\"tns:ClientRecord\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:complexType
+        name=\"Authentication\">\r\n\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t<xsd:element
+        name=\"APILoginID\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element name=\"TSHash\"
+        type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element name=\"UTCTime\" type=\"xsd:string\"/>\r\n\t\t\t\t</xsd:sequence>\r\n\t\t\t</xsd:complexType>\r\n\t\t\t<xsd:element
+        name=\"Authentication\" nillable=\"true\" type=\"tns:Authentication\"/>\r\n\t\t\t<xsd:complexType
+        name=\"ClientRecord\">\r\n\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t<xsd:element
+        name=\"MerchantID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t<xsd:element name=\"ClientID\"
+        type=\"xsd:int\"/>\r\n\t\t\t\t\t<xsd:element minOccurs=\"0\" name=\"FirstName\"
+        nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element minOccurs=\"0\"
+        name=\"LastName\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"CompanyName\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"Address1\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"Address2\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"City\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"State\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"PostalCode\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"CountryCode\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"PhoneNumber\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"FaxNumber\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"EmailAddress\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoFirstName\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoLastName\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoCompanyName\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoAddress1\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoAddress2\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoCity\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoState\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoPostalCode\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoCountryCode\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoPhoneNumber\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoFaxNumber\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ConsumerID\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"Status\" nillable=\"true\" type=\"tns:ClientStatus\"/>\r\n\t\t\t\t</xsd:sequence>\r\n\t\t\t</xsd:complexType>\r\n\t\t\t<xsd:element
+        name=\"ClientRecord\" nillable=\"true\" type=\"tns:ClientRecord\"/>\r\n\t\t\t<xsd:simpleType
+        name=\"ClientStatus\">\r\n\t\t\t\t<xsd:restriction base=\"xsd:string\">\r\n\t\t\t\t\t<xsd:enumeration
+        value=\"Active\">\r\n\t\t\t\t\t\t<xsd:annotation>\r\n\t\t\t\t\t\t\t<xsd:appinfo>\r\n\t\t\t\t\t\t\t\t<EnumerationValue
+        xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\">1</EnumerationValue>\r\n\t\t\t\t\t\t\t</xsd:appinfo>\r\n\t\t\t\t\t\t</xsd:annotation>\r\n\t\t\t\t\t</xsd:enumeration>\r\n\t\t\t\t\t<xsd:enumeration
+        value=\"Deleted\">\r\n\t\t\t\t\t\t<xsd:annotation>\r\n\t\t\t\t\t\t\t<xsd:appinfo>\r\n\t\t\t\t\t\t\t\t<EnumerationValue
+        xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\">2</EnumerationValue>\r\n\t\t\t\t\t\t\t</xsd:appinfo>\r\n\t\t\t\t\t\t</xsd:annotation>\r\n\t\t\t\t\t</xsd:enumeration>\r\n\t\t\t\t\t<xsd:enumeration
+        value=\"Suspended\">\r\n\t\t\t\t\t\t<xsd:annotation>\r\n\t\t\t\t\t\t\t<xsd:appinfo>\r\n\t\t\t\t\t\t\t\t<EnumerationValue
+        xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\">3</EnumerationValue>\r\n\t\t\t\t\t\t\t</xsd:appinfo>\r\n\t\t\t\t\t\t</xsd:annotation>\r\n\t\t\t\t\t</xsd:enumeration>\r\n\t\t\t\t</xsd:restriction>\r\n\t\t\t</xsd:simpleType>\r\n\t\t\t<xsd:element
+        name=\"ClientStatus\" nillable=\"true\" type=\"tns:ClientStatus\"/>\r\n\t\t\t<xsd:element
+        name=\"createClientResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"createClientResult\" type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"updateClient\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"client\" type=\"tns:ClientRecord\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"updateClientResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"updateClientResult\" type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"deleteClient\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"MerchantID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t\t<xsd:element name=\"ClientID\"
+        type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"deleteClientResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"deleteClientResult\" type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"getClient\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"MerchantID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t\t<xsd:element name=\"ClientID\"
+        type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"getClientResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"getClientResult\" nillable=\"true\" type=\"tns:ArrayOfClientRecord\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:complexType
+        name=\"ArrayOfClientRecord\">\r\n\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" maxOccurs=\"unbounded\" name=\"ClientRecord\" nillable=\"true\"
+        type=\"tns:ClientRecord\"/>\r\n\t\t\t\t</xsd:sequence>\r\n\t\t\t</xsd:complexType>\r\n\t\t\t<xsd:element
+        name=\"ArrayOfClientRecord\" nillable=\"true\" type=\"tns:ArrayOfClientRecord\"/>\r\n\t\t\t<xsd:element
+        name=\"createPaymentMethod\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"payment\" type=\"tns:PaymentMethod\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:complexType
+        name=\"PaymentMethod\">\r\n\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t<xsd:element
+        name=\"MerchantID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t<xsd:element name=\"ClientID\"
+        type=\"xsd:int\"/>\r\n\t\t\t\t\t<xsd:element name=\"PaymentMethodID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"AcctHolderName\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"CcCardNumber\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"CcExpirationDate\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"CcCardType\" nillable=\"true\" type=\"tns:CcCardType\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"CcProcurementCard\" nillable=\"true\" type=\"xsd:boolean\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"EcAccountNumber\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"EcAccountTRN\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"EcAccountType\" nillable=\"true\" type=\"tns:EcAccountType\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"Note\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"IsDefault\" nillable=\"true\" type=\"xsd:boolean\"/>\r\n\t\t\t\t</xsd:sequence>\r\n\t\t\t</xsd:complexType>\r\n\t\t\t<xsd:element
+        name=\"PaymentMethod\" nillable=\"true\" type=\"tns:PaymentMethod\"/>\r\n\t\t\t<xsd:simpleType
+        name=\"CcCardType\">\r\n\t\t\t\t<xsd:restriction base=\"xsd:string\">\r\n\t\t\t\t\t<xsd:enumeration
+        value=\"VISA\"/>\r\n\t\t\t\t\t<xsd:enumeration value=\"MAST\"/>\r\n\t\t\t\t\t<xsd:enumeration
+        value=\"DISC\"/>\r\n\t\t\t\t\t<xsd:enumeration value=\"AMER\"/>\r\n\t\t\t\t\t<xsd:enumeration
+        value=\"DINE\"/>\r\n\t\t\t\t\t<xsd:enumeration value=\"JCB\"/>\r\n\t\t\t\t</xsd:restriction>\r\n\t\t\t</xsd:simpleType>\r\n\t\t\t<xsd:element
+        name=\"CcCardType\" nillable=\"true\" type=\"tns:CcCardType\"/>\r\n\t\t\t<xsd:simpleType
+        name=\"EcAccountType\">\r\n\t\t\t\t<xsd:restriction base=\"xsd:string\">\r\n\t\t\t\t\t<xsd:enumeration
+        value=\"CHECKING\"/>\r\n\t\t\t\t\t<xsd:enumeration value=\"SAVINGS\"/>\r\n\t\t\t\t</xsd:restriction>\r\n\t\t\t</xsd:simpleType>\r\n\t\t\t<xsd:element
+        name=\"EcAccountType\" nillable=\"true\" type=\"tns:EcAccountType\"/>\r\n\t\t\t<xsd:element
+        name=\"createPaymentMethodResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"createPaymentMethodResult\" type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"updatePaymentMethod\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"payment\" type=\"tns:PaymentMethod\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"updatePaymentMethodResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"updatePaymentMethodResult\" type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"deletePaymentMethod\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"MerchantID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t\t<xsd:element name=\"PaymentMethodID\"
+        type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"deletePaymentMethodResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"deletePaymentMethodResult\" type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"getPaymentMethod\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"MerchantID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t\t<xsd:element name=\"ClientID\"
+        type=\"xsd:int\"/>\r\n\t\t\t\t\t\t<xsd:element name=\"PaymentMethodID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"getPaymentMethodResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"getPaymentMethodResult\" nillable=\"true\" type=\"tns:ArrayOfPaymentMethod\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:complexType
+        name=\"ArrayOfPaymentMethod\">\r\n\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" maxOccurs=\"unbounded\" name=\"PaymentMethod\" nillable=\"true\"
+        type=\"tns:PaymentMethod\"/>\r\n\t\t\t\t</xsd:sequence>\r\n\t\t\t</xsd:complexType>\r\n\t\t\t<xsd:element
+        name=\"ArrayOfPaymentMethod\" nillable=\"true\" type=\"tns:ArrayOfPaymentMethod\"/>\r\n\t\t</xsd:schema>\r\n\t\t<xs:schema
+        attributeFormDefault=\"qualified\" elementFormDefault=\"qualified\" targetNamespace=\"http://schemas.microsoft.com/2003/10/Serialization/\"
+        xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:tns=\"http://schemas.microsoft.com/2003/10/Serialization/\">\r\n\t\t\t<xs:element
+        name=\"anyType\" nillable=\"true\" type=\"xs:anyType\"/>\r\n\t\t\t<xs:element
+        name=\"anyURI\" nillable=\"true\" type=\"xs:anyURI\"/>\r\n\t\t\t<xs:element
+        name=\"base64Binary\" nillable=\"true\" type=\"xs:base64Binary\"/>\r\n\t\t\t<xs:element
+        name=\"boolean\" nillable=\"true\" type=\"xs:boolean\"/>\r\n\t\t\t<xs:element
+        name=\"byte\" nillable=\"true\" type=\"xs:byte\"/>\r\n\t\t\t<xs:element name=\"dateTime\"
+        nillable=\"true\" type=\"xs:dateTime\"/>\r\n\t\t\t<xs:element name=\"decimal\"
+        nillable=\"true\" type=\"xs:decimal\"/>\r\n\t\t\t<xs:element name=\"double\"
+        nillable=\"true\" type=\"xs:double\"/>\r\n\t\t\t<xs:element name=\"float\"
+        nillable=\"true\" type=\"xs:float\"/>\r\n\t\t\t<xs:element name=\"int\" nillable=\"true\"
+        type=\"xs:int\"/>\r\n\t\t\t<xs:element name=\"long\" nillable=\"true\" type=\"xs:long\"/>\r\n\t\t\t<xs:element
+        name=\"QName\" nillable=\"true\" type=\"xs:QName\"/>\r\n\t\t\t<xs:element
+        name=\"short\" nillable=\"true\" type=\"xs:short\"/>\r\n\t\t\t<xs:element
+        name=\"string\" nillable=\"true\" type=\"xs:string\"/>\r\n\t\t\t<xs:element
+        name=\"unsignedByte\" nillable=\"true\" type=\"xs:unsignedByte\"/>\r\n\t\t\t<xs:element
+        name=\"unsignedInt\" nillable=\"true\" type=\"xs:unsignedInt\"/>\r\n\t\t\t<xs:element
+        name=\"unsignedLong\" nillable=\"true\" type=\"xs:unsignedLong\"/>\r\n\t\t\t<xs:element
+        name=\"unsignedShort\" nillable=\"true\" type=\"xs:unsignedShort\"/>\r\n\t\t\t<xs:element
+        name=\"char\" nillable=\"true\" type=\"tns:char\"/>\r\n\t\t\t<xs:simpleType
+        name=\"char\">\r\n\t\t\t\t<xs:restriction base=\"xs:int\"/>\r\n\t\t\t</xs:simpleType>\r\n\t\t\t<xs:element
+        name=\"duration\" nillable=\"true\" type=\"tns:duration\"/>\r\n\t\t\t<xs:simpleType
+        name=\"duration\">\r\n\t\t\t\t<xs:restriction base=\"xs:duration\">\r\n\t\t\t\t\t<xs:pattern
+        value=\"\\-?P(\\d*D)?(T(\\d*H)?(\\d*M)?(\\d*(\\.\\d*)?S)?)?\"/>\r\n\t\t\t\t\t<xs:minInclusive
+        value=\"-P10675199DT2H48M5.4775808S\"/>\r\n\t\t\t\t\t<xs:maxInclusive value=\"P10675199DT2H48M5.4775807S\"/>\r\n\t\t\t\t</xs:restriction>\r\n\t\t\t</xs:simpleType>\r\n\t\t\t<xs:element
+        name=\"guid\" nillable=\"true\" type=\"tns:guid\"/>\r\n\t\t\t<xs:simpleType
+        name=\"guid\">\r\n\t\t\t\t<xs:restriction base=\"xs:string\">\r\n\t\t\t\t\t<xs:pattern
+        value=\"[\\da-fA-F]{8}-[\\da-fA-F]{4}-[\\da-fA-F]{4}-[\\da-fA-F]{4}-[\\da-fA-F]{12}\"/>\r\n\t\t\t\t</xs:restriction>\r\n\t\t\t</xs:simpleType>\r\n\t\t\t<xs:attribute
+        name=\"FactoryType\" type=\"xs:QName\"/>\r\n\t\t\t<xs:attribute name=\"Id\"
+        type=\"xs:ID\"/>\r\n\t\t\t<xs:attribute name=\"Ref\" type=\"xs:IDREF\"/>\r\n\t\t</xs:schema>\r\n\t</wsdl:types>\r\n\t<wsdl:message
+        name=\"IClientService_createClient_InputMessage\">\r\n\t\t<wsdl:part name=\"parameters\"
+        element=\"tns:createClient\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message name=\"IClientService_createClient_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:createClientResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_updateClient_InputMessage\">\r\n\t\t<wsdl:part name=\"parameters\"
+        element=\"tns:updateClient\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message name=\"IClientService_updateClient_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:updateClientResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_deleteClient_InputMessage\">\r\n\t\t<wsdl:part name=\"parameters\"
+        element=\"tns:deleteClient\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message name=\"IClientService_deleteClient_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:deleteClientResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_getClient_InputMessage\">\r\n\t\t<wsdl:part name=\"parameters\"
+        element=\"tns:getClient\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message name=\"IClientService_getClient_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:getClientResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_createPaymentMethod_InputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:createPaymentMethod\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_createPaymentMethod_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:createPaymentMethodResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_updatePaymentMethod_InputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:updatePaymentMethod\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_updatePaymentMethod_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:updatePaymentMethodResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_deletePaymentMethod_InputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:deletePaymentMethod\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_deletePaymentMethod_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:deletePaymentMethodResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_getPaymentMethod_InputMessage\">\r\n\t\t<wsdl:part name=\"parameters\"
+        element=\"tns:getPaymentMethod\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_getPaymentMethod_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:getPaymentMethodResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:portType
+        name=\"IClientService\">\r\n\t\t<wsdl:operation name=\"createClient\">\r\n\t\t\t<wsdl:input
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/createClient\"
+        message=\"tns:IClientService_createClient_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/createClientResponse\"
+        message=\"tns:IClientService_createClient_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"updateClient\">\r\n\t\t\t<wsdl:input wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/updateClient\"
+        message=\"tns:IClientService_updateClient_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/updateClientResponse\"
+        message=\"tns:IClientService_updateClient_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"deleteClient\">\r\n\t\t\t<wsdl:input wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/deleteClient\"
+        message=\"tns:IClientService_deleteClient_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/deleteClientResponse\"
+        message=\"tns:IClientService_deleteClient_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"getClient\">\r\n\t\t\t<wsdl:input wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/getClient\"
+        message=\"tns:IClientService_getClient_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/getClientResponse\"
+        message=\"tns:IClientService_getClient_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"createPaymentMethod\">\r\n\t\t\t<wsdl:input wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/createPaymentMethod\"
+        message=\"tns:IClientService_createPaymentMethod_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/createPaymentMethodResponse\"
+        message=\"tns:IClientService_createPaymentMethod_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"updatePaymentMethod\">\r\n\t\t\t<wsdl:input wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/updatePaymentMethod\"
+        message=\"tns:IClientService_updatePaymentMethod_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/updatePaymentMethodResponse\"
+        message=\"tns:IClientService_updatePaymentMethod_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"deletePaymentMethod\">\r\n\t\t\t<wsdl:input wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/deletePaymentMethod\"
+        message=\"tns:IClientService_deletePaymentMethod_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/deletePaymentMethodResponse\"
+        message=\"tns:IClientService_deletePaymentMethod_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"getPaymentMethod\">\r\n\t\t\t<wsdl:input wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/getPaymentMethod\"
+        message=\"tns:IClientService_getPaymentMethod_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/getPaymentMethodResponse\"
+        message=\"tns:IClientService_getPaymentMethod_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t</wsdl:portType>\r\n\t<wsdl:binding
+        name=\"WSHttpBinding_IClientService\" type=\"tns:IClientService\">\r\n\t\t<wsp:PolicyReference
+        URI=\"#WSHttpBinding_IClientService_policy\"/>\r\n\t\t<soap12:binding transport=\"http://schemas.xmlsoap.org/soap/http\"/>\r\n\t\t<wsdl:operation
+        name=\"createClient\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/createClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"updateClient\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/updateClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"deleteClient\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/deleteClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"getClient\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/getClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"createPaymentMethod\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/createPaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"updatePaymentMethod\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/updatePaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"deletePaymentMethod\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/deletePaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"getPaymentMethod\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/getPaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t</wsdl:binding>\r\n\t<wsdl:binding
+        name=\"BasicHttpBinding_IClientService\" type=\"tns:IClientService\">\r\n\t\t<wsp:PolicyReference
+        URI=\"#BasicHttpBinding_IClientService_policy\"/>\r\n\t\t<soap:binding transport=\"http://schemas.xmlsoap.org/soap/http\"/>\r\n\t\t<wsdl:operation
+        name=\"createClient\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/createClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"updateClient\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/updateClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"deleteClient\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/deleteClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"getClient\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/getClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"createPaymentMethod\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/createPaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"updatePaymentMethod\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/updatePaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"deletePaymentMethod\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/deletePaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"getPaymentMethod\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/getPaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t</wsdl:binding>\r\n\t<wsdl:service
+        name=\"ClientService\">\r\n\t\t<wsdl:port name=\"WSHttpBinding_IClientService\"
+        binding=\"tns:WSHttpBinding_IClientService\">\r\n\t\t\t<soap12:address location=\"https://sandbox.paymentsgateway.net/ws/Client.svc\"/>\r\n\t\t\t<wsa10:EndpointReference>\r\n\t\t\t\t<wsa10:Address>https://sandbox.paymentsgateway.net/ws/Client.svc</wsa10:Address>\r\n\t\t\t</wsa10:EndpointReference>\r\n\t\t</wsdl:port>\r\n\t\t<wsdl:port
+        name=\"BasicHttpBinding_IClientService\" binding=\"tns:BasicHttpBinding_IClientService\">\r\n\t\t\t<soap:address
+        location=\"https://sandbox.paymentsgateway.net/ws/Client.svc/basic\"/>\r\n\t\t</wsdl:port>\r\n\t</wsdl:service>\r\n</wsdl:definitions>"
+    http_version: 
+  recorded_at: Wed, 29 Apr 2015 08:16:28 GMT
+- request:
+    method: post
+    uri: https://sandbox.paymentsgateway.net/ws/Client.svc/basic
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="https://ws.paymentsgateway.net/v1"
+        xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"><env:Body><tns:createClient><tns:ticket><tns:APILoginID>q71T4Wt6Dl</tns:APILoginID><tns:TSHash>d8d3512307cc8bbe637c54dd8154606c</tns:TSHash><tns:UTCTime>635658921872918321</tns:UTCTime></tns:ticket><tns:client><tns:MerchantID>174641</tns:MerchantID><tns:FirstName>John</tns:FirstName><tns:LastName>Black</tns:LastName><tns:CompanyName
+        xsi:nil="true"/><tns:ConsumerID xsi:nil="true"/></tns:client></tns:createClient></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - ! '"https://ws.paymentsgateway.net/v1/IClientService/createClient"'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '692'
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Microsoft-IIS/7.5
+      Content-Type:
+      - text/xml; charset=utf-8
+      Date:
+      - Wed, 29 Apr 2015 08:16:31 GMT
+      Set-Cookie:
+      - X-Mapping-gbooldlg=0DBF2E22300A61A18D35B33164C4A32E;path=/
+      X-Powered-By:
+      - ASP.NET
+      Content-Length:
+      - '229'
+    body:
+      encoding: US-ASCII
+      string: <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body><createClientResponse
+        xmlns="https://ws.paymentsgateway.net/v1"><createClientResult>1546338</createClientResult></createClientResponse></s:Body></s:Envelope>
+    http_version: 
+  recorded_at: Wed, 29 Apr 2015 08:16:31 GMT
+- request:
+    method: get
+    uri: https://sandbox.paymentsgateway.net/WS/Client.wsdl
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Microsoft-IIS/7.5
+      Content-Type:
+      - text/xml
+      Date:
+      - Wed, 29 Apr 2015 08:16:32 GMT
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - ! '"4281fa9bf8dece1:0"'
+      Set-Cookie:
+      - X-Mapping-gbooldlg=DFC7CDDF5472E60DACDF1BDF84C0518B;path=/
+      Last-Modified:
+      - Mon, 11 Nov 2013 16:10:59 GMT
+      X-Powered-By:
+      - ASP.NET
+      Content-Length:
+      - '27612'
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<wsdl:definitions name=\"ClientService\"
+        targetNamespace=\"https://ws.paymentsgateway.net/v1\" xmlns:wsdl=\"http://schemas.xmlsoap.org/wsdl/\"
+        xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\" xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"
+        xmlns:soapenc=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:wsam=\"http://www.w3.org/2007/05/addressing/metadata\"
+        xmlns:tns=\"https://ws.paymentsgateway.net/v1\" xmlns:wsa=\"http://schemas.xmlsoap.org/ws/2004/08/addressing\"
+        xmlns:wsp=\"http://schemas.xmlsoap.org/ws/2004/09/policy\" xmlns:wsap=\"http://schemas.xmlsoap.org/ws/2004/08/addressing/policy\"
+        xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:msc=\"http://schemas.microsoft.com/ws/2005/12/wsdl/contract\"
+        xmlns:wsaw=\"http://www.w3.org/2006/05/addressing/wsdl\" xmlns:soap12=\"http://schemas.xmlsoap.org/wsdl/soap12/\"
+        xmlns:wsa10=\"http://www.w3.org/2005/08/addressing\" xmlns:wsx=\"http://schemas.xmlsoap.org/ws/2004/09/mex\">\r\n\t<wsp:Policy
+        wsu:Id=\"WSHttpBinding_IClientService_policy\">\r\n\t\t<wsp:ExactlyOne>\r\n\t\t\t<wsp:All>\r\n\t\t\t\t<sp:TransportBinding
+        xmlns:sp=\"http://schemas.xmlsoap.org/ws/2005/07/securitypolicy\">\r\n\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t<sp:TransportToken>\r\n\t\t\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t\t\t<sp:HttpsToken
+        RequireClientCertificate=\"false\"/>\r\n\t\t\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t\t\t</sp:TransportToken>\r\n\t\t\t\t\t\t<sp:AlgorithmSuite>\r\n\t\t\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t\t\t<sp:Basic256/>\r\n\t\t\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t\t\t</sp:AlgorithmSuite>\r\n\t\t\t\t\t\t<sp:Layout>\r\n\t\t\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t\t\t<sp:Strict/>\r\n\t\t\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t\t\t</sp:Layout>\r\n\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t</sp:TransportBinding>\r\n\t\t\t\t<wsaw:UsingAddressing/>\r\n\t\t\t</wsp:All>\r\n\t\t</wsp:ExactlyOne>\r\n\t</wsp:Policy>\r\n\t<wsp:Policy
+        wsu:Id=\"BasicHttpBinding_IClientService_policy\">\r\n\t\t<wsp:ExactlyOne>\r\n\t\t\t<wsp:All>\r\n\t\t\t\t<sp:TransportBinding
+        xmlns:sp=\"http://schemas.xmlsoap.org/ws/2005/07/securitypolicy\">\r\n\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t<sp:TransportToken>\r\n\t\t\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t\t\t<sp:HttpsToken
+        RequireClientCertificate=\"false\"/>\r\n\t\t\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t\t\t</sp:TransportToken>\r\n\t\t\t\t\t\t<sp:AlgorithmSuite>\r\n\t\t\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t\t\t<sp:Basic256/>\r\n\t\t\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t\t\t</sp:AlgorithmSuite>\r\n\t\t\t\t\t\t<sp:Layout>\r\n\t\t\t\t\t\t\t<wsp:Policy>\r\n\t\t\t\t\t\t\t\t<sp:Strict/>\r\n\t\t\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t\t\t</sp:Layout>\r\n\t\t\t\t\t</wsp:Policy>\r\n\t\t\t\t</sp:TransportBinding>\r\n\t\t\t</wsp:All>\r\n\t\t</wsp:ExactlyOne>\r\n\t</wsp:Policy>\r\n\t<wsdl:types>\r\n\t\t<xsd:schema
+        elementFormDefault=\"qualified\" targetNamespace=\"https://ws.paymentsgateway.net/v1\">\r\n\t\t\t<xsd:element
+        name=\"createClient\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"client\" type=\"tns:ClientRecord\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:complexType
+        name=\"Authentication\">\r\n\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t<xsd:element
+        name=\"APILoginID\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element name=\"TSHash\"
+        type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element name=\"UTCTime\" type=\"xsd:string\"/>\r\n\t\t\t\t</xsd:sequence>\r\n\t\t\t</xsd:complexType>\r\n\t\t\t<xsd:element
+        name=\"Authentication\" nillable=\"true\" type=\"tns:Authentication\"/>\r\n\t\t\t<xsd:complexType
+        name=\"ClientRecord\">\r\n\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t<xsd:element
+        name=\"MerchantID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t<xsd:element name=\"ClientID\"
+        type=\"xsd:int\"/>\r\n\t\t\t\t\t<xsd:element minOccurs=\"0\" name=\"FirstName\"
+        nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element minOccurs=\"0\"
+        name=\"LastName\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"CompanyName\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"Address1\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"Address2\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"City\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"State\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"PostalCode\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"CountryCode\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"PhoneNumber\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"FaxNumber\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"EmailAddress\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoFirstName\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoLastName\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoCompanyName\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoAddress1\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoAddress2\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoCity\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoState\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoPostalCode\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoCountryCode\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoPhoneNumber\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ShiptoFaxNumber\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"ConsumerID\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"Status\" nillable=\"true\" type=\"tns:ClientStatus\"/>\r\n\t\t\t\t</xsd:sequence>\r\n\t\t\t</xsd:complexType>\r\n\t\t\t<xsd:element
+        name=\"ClientRecord\" nillable=\"true\" type=\"tns:ClientRecord\"/>\r\n\t\t\t<xsd:simpleType
+        name=\"ClientStatus\">\r\n\t\t\t\t<xsd:restriction base=\"xsd:string\">\r\n\t\t\t\t\t<xsd:enumeration
+        value=\"Active\">\r\n\t\t\t\t\t\t<xsd:annotation>\r\n\t\t\t\t\t\t\t<xsd:appinfo>\r\n\t\t\t\t\t\t\t\t<EnumerationValue
+        xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\">1</EnumerationValue>\r\n\t\t\t\t\t\t\t</xsd:appinfo>\r\n\t\t\t\t\t\t</xsd:annotation>\r\n\t\t\t\t\t</xsd:enumeration>\r\n\t\t\t\t\t<xsd:enumeration
+        value=\"Deleted\">\r\n\t\t\t\t\t\t<xsd:annotation>\r\n\t\t\t\t\t\t\t<xsd:appinfo>\r\n\t\t\t\t\t\t\t\t<EnumerationValue
+        xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\">2</EnumerationValue>\r\n\t\t\t\t\t\t\t</xsd:appinfo>\r\n\t\t\t\t\t\t</xsd:annotation>\r\n\t\t\t\t\t</xsd:enumeration>\r\n\t\t\t\t\t<xsd:enumeration
+        value=\"Suspended\">\r\n\t\t\t\t\t\t<xsd:annotation>\r\n\t\t\t\t\t\t\t<xsd:appinfo>\r\n\t\t\t\t\t\t\t\t<EnumerationValue
+        xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\">3</EnumerationValue>\r\n\t\t\t\t\t\t\t</xsd:appinfo>\r\n\t\t\t\t\t\t</xsd:annotation>\r\n\t\t\t\t\t</xsd:enumeration>\r\n\t\t\t\t</xsd:restriction>\r\n\t\t\t</xsd:simpleType>\r\n\t\t\t<xsd:element
+        name=\"ClientStatus\" nillable=\"true\" type=\"tns:ClientStatus\"/>\r\n\t\t\t<xsd:element
+        name=\"createClientResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"createClientResult\" type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"updateClient\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"client\" type=\"tns:ClientRecord\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"updateClientResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"updateClientResult\" type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"deleteClient\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"MerchantID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t\t<xsd:element name=\"ClientID\"
+        type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"deleteClientResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"deleteClientResult\" type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"getClient\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"MerchantID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t\t<xsd:element name=\"ClientID\"
+        type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"getClientResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"getClientResult\" nillable=\"true\" type=\"tns:ArrayOfClientRecord\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:complexType
+        name=\"ArrayOfClientRecord\">\r\n\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" maxOccurs=\"unbounded\" name=\"ClientRecord\" nillable=\"true\"
+        type=\"tns:ClientRecord\"/>\r\n\t\t\t\t</xsd:sequence>\r\n\t\t\t</xsd:complexType>\r\n\t\t\t<xsd:element
+        name=\"ArrayOfClientRecord\" nillable=\"true\" type=\"tns:ArrayOfClientRecord\"/>\r\n\t\t\t<xsd:element
+        name=\"createPaymentMethod\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"payment\" type=\"tns:PaymentMethod\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:complexType
+        name=\"PaymentMethod\">\r\n\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t<xsd:element
+        name=\"MerchantID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t<xsd:element name=\"ClientID\"
+        type=\"xsd:int\"/>\r\n\t\t\t\t\t<xsd:element name=\"PaymentMethodID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"AcctHolderName\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"CcCardNumber\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"CcExpirationDate\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"CcCardType\" nillable=\"true\" type=\"tns:CcCardType\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"CcProcurementCard\" nillable=\"true\" type=\"xsd:boolean\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"EcAccountNumber\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"EcAccountTRN\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"EcAccountType\" nillable=\"true\" type=\"tns:EcAccountType\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"Note\" nillable=\"true\" type=\"xsd:string\"/>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"IsDefault\" nillable=\"true\" type=\"xsd:boolean\"/>\r\n\t\t\t\t</xsd:sequence>\r\n\t\t\t</xsd:complexType>\r\n\t\t\t<xsd:element
+        name=\"PaymentMethod\" nillable=\"true\" type=\"tns:PaymentMethod\"/>\r\n\t\t\t<xsd:simpleType
+        name=\"CcCardType\">\r\n\t\t\t\t<xsd:restriction base=\"xsd:string\">\r\n\t\t\t\t\t<xsd:enumeration
+        value=\"VISA\"/>\r\n\t\t\t\t\t<xsd:enumeration value=\"MAST\"/>\r\n\t\t\t\t\t<xsd:enumeration
+        value=\"DISC\"/>\r\n\t\t\t\t\t<xsd:enumeration value=\"AMER\"/>\r\n\t\t\t\t\t<xsd:enumeration
+        value=\"DINE\"/>\r\n\t\t\t\t\t<xsd:enumeration value=\"JCB\"/>\r\n\t\t\t\t</xsd:restriction>\r\n\t\t\t</xsd:simpleType>\r\n\t\t\t<xsd:element
+        name=\"CcCardType\" nillable=\"true\" type=\"tns:CcCardType\"/>\r\n\t\t\t<xsd:simpleType
+        name=\"EcAccountType\">\r\n\t\t\t\t<xsd:restriction base=\"xsd:string\">\r\n\t\t\t\t\t<xsd:enumeration
+        value=\"CHECKING\"/>\r\n\t\t\t\t\t<xsd:enumeration value=\"SAVINGS\"/>\r\n\t\t\t\t</xsd:restriction>\r\n\t\t\t</xsd:simpleType>\r\n\t\t\t<xsd:element
+        name=\"EcAccountType\" nillable=\"true\" type=\"tns:EcAccountType\"/>\r\n\t\t\t<xsd:element
+        name=\"createPaymentMethodResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"createPaymentMethodResult\" type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"updatePaymentMethod\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"payment\" type=\"tns:PaymentMethod\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"updatePaymentMethodResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"updatePaymentMethodResult\" type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"deletePaymentMethod\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"MerchantID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t\t<xsd:element name=\"PaymentMethodID\"
+        type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"deletePaymentMethodResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"deletePaymentMethodResult\" type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"getPaymentMethod\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"ticket\" type=\"tns:Authentication\"/>\r\n\t\t\t\t\t\t<xsd:element
+        name=\"MerchantID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t\t<xsd:element name=\"ClientID\"
+        type=\"xsd:int\"/>\r\n\t\t\t\t\t\t<xsd:element name=\"PaymentMethodID\" type=\"xsd:int\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:element
+        name=\"getPaymentMethodResponse\">\r\n\t\t\t\t<xsd:complexType>\r\n\t\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" name=\"getPaymentMethodResult\" nillable=\"true\" type=\"tns:ArrayOfPaymentMethod\"/>\r\n\t\t\t\t\t</xsd:sequence>\r\n\t\t\t\t</xsd:complexType>\r\n\t\t\t</xsd:element>\r\n\t\t\t<xsd:complexType
+        name=\"ArrayOfPaymentMethod\">\r\n\t\t\t\t<xsd:sequence>\r\n\t\t\t\t\t<xsd:element
+        minOccurs=\"0\" maxOccurs=\"unbounded\" name=\"PaymentMethod\" nillable=\"true\"
+        type=\"tns:PaymentMethod\"/>\r\n\t\t\t\t</xsd:sequence>\r\n\t\t\t</xsd:complexType>\r\n\t\t\t<xsd:element
+        name=\"ArrayOfPaymentMethod\" nillable=\"true\" type=\"tns:ArrayOfPaymentMethod\"/>\r\n\t\t</xsd:schema>\r\n\t\t<xs:schema
+        attributeFormDefault=\"qualified\" elementFormDefault=\"qualified\" targetNamespace=\"http://schemas.microsoft.com/2003/10/Serialization/\"
+        xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:tns=\"http://schemas.microsoft.com/2003/10/Serialization/\">\r\n\t\t\t<xs:element
+        name=\"anyType\" nillable=\"true\" type=\"xs:anyType\"/>\r\n\t\t\t<xs:element
+        name=\"anyURI\" nillable=\"true\" type=\"xs:anyURI\"/>\r\n\t\t\t<xs:element
+        name=\"base64Binary\" nillable=\"true\" type=\"xs:base64Binary\"/>\r\n\t\t\t<xs:element
+        name=\"boolean\" nillable=\"true\" type=\"xs:boolean\"/>\r\n\t\t\t<xs:element
+        name=\"byte\" nillable=\"true\" type=\"xs:byte\"/>\r\n\t\t\t<xs:element name=\"dateTime\"
+        nillable=\"true\" type=\"xs:dateTime\"/>\r\n\t\t\t<xs:element name=\"decimal\"
+        nillable=\"true\" type=\"xs:decimal\"/>\r\n\t\t\t<xs:element name=\"double\"
+        nillable=\"true\" type=\"xs:double\"/>\r\n\t\t\t<xs:element name=\"float\"
+        nillable=\"true\" type=\"xs:float\"/>\r\n\t\t\t<xs:element name=\"int\" nillable=\"true\"
+        type=\"xs:int\"/>\r\n\t\t\t<xs:element name=\"long\" nillable=\"true\" type=\"xs:long\"/>\r\n\t\t\t<xs:element
+        name=\"QName\" nillable=\"true\" type=\"xs:QName\"/>\r\n\t\t\t<xs:element
+        name=\"short\" nillable=\"true\" type=\"xs:short\"/>\r\n\t\t\t<xs:element
+        name=\"string\" nillable=\"true\" type=\"xs:string\"/>\r\n\t\t\t<xs:element
+        name=\"unsignedByte\" nillable=\"true\" type=\"xs:unsignedByte\"/>\r\n\t\t\t<xs:element
+        name=\"unsignedInt\" nillable=\"true\" type=\"xs:unsignedInt\"/>\r\n\t\t\t<xs:element
+        name=\"unsignedLong\" nillable=\"true\" type=\"xs:unsignedLong\"/>\r\n\t\t\t<xs:element
+        name=\"unsignedShort\" nillable=\"true\" type=\"xs:unsignedShort\"/>\r\n\t\t\t<xs:element
+        name=\"char\" nillable=\"true\" type=\"tns:char\"/>\r\n\t\t\t<xs:simpleType
+        name=\"char\">\r\n\t\t\t\t<xs:restriction base=\"xs:int\"/>\r\n\t\t\t</xs:simpleType>\r\n\t\t\t<xs:element
+        name=\"duration\" nillable=\"true\" type=\"tns:duration\"/>\r\n\t\t\t<xs:simpleType
+        name=\"duration\">\r\n\t\t\t\t<xs:restriction base=\"xs:duration\">\r\n\t\t\t\t\t<xs:pattern
+        value=\"\\-?P(\\d*D)?(T(\\d*H)?(\\d*M)?(\\d*(\\.\\d*)?S)?)?\"/>\r\n\t\t\t\t\t<xs:minInclusive
+        value=\"-P10675199DT2H48M5.4775808S\"/>\r\n\t\t\t\t\t<xs:maxInclusive value=\"P10675199DT2H48M5.4775807S\"/>\r\n\t\t\t\t</xs:restriction>\r\n\t\t\t</xs:simpleType>\r\n\t\t\t<xs:element
+        name=\"guid\" nillable=\"true\" type=\"tns:guid\"/>\r\n\t\t\t<xs:simpleType
+        name=\"guid\">\r\n\t\t\t\t<xs:restriction base=\"xs:string\">\r\n\t\t\t\t\t<xs:pattern
+        value=\"[\\da-fA-F]{8}-[\\da-fA-F]{4}-[\\da-fA-F]{4}-[\\da-fA-F]{4}-[\\da-fA-F]{12}\"/>\r\n\t\t\t\t</xs:restriction>\r\n\t\t\t</xs:simpleType>\r\n\t\t\t<xs:attribute
+        name=\"FactoryType\" type=\"xs:QName\"/>\r\n\t\t\t<xs:attribute name=\"Id\"
+        type=\"xs:ID\"/>\r\n\t\t\t<xs:attribute name=\"Ref\" type=\"xs:IDREF\"/>\r\n\t\t</xs:schema>\r\n\t</wsdl:types>\r\n\t<wsdl:message
+        name=\"IClientService_createClient_InputMessage\">\r\n\t\t<wsdl:part name=\"parameters\"
+        element=\"tns:createClient\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message name=\"IClientService_createClient_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:createClientResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_updateClient_InputMessage\">\r\n\t\t<wsdl:part name=\"parameters\"
+        element=\"tns:updateClient\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message name=\"IClientService_updateClient_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:updateClientResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_deleteClient_InputMessage\">\r\n\t\t<wsdl:part name=\"parameters\"
+        element=\"tns:deleteClient\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message name=\"IClientService_deleteClient_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:deleteClientResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_getClient_InputMessage\">\r\n\t\t<wsdl:part name=\"parameters\"
+        element=\"tns:getClient\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message name=\"IClientService_getClient_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:getClientResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_createPaymentMethod_InputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:createPaymentMethod\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_createPaymentMethod_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:createPaymentMethodResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_updatePaymentMethod_InputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:updatePaymentMethod\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_updatePaymentMethod_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:updatePaymentMethodResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_deletePaymentMethod_InputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:deletePaymentMethod\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_deletePaymentMethod_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:deletePaymentMethodResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_getPaymentMethod_InputMessage\">\r\n\t\t<wsdl:part name=\"parameters\"
+        element=\"tns:getPaymentMethod\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:message
+        name=\"IClientService_getPaymentMethod_OutputMessage\">\r\n\t\t<wsdl:part
+        name=\"parameters\" element=\"tns:getPaymentMethodResponse\"/>\r\n\t</wsdl:message>\r\n\t<wsdl:portType
+        name=\"IClientService\">\r\n\t\t<wsdl:operation name=\"createClient\">\r\n\t\t\t<wsdl:input
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/createClient\"
+        message=\"tns:IClientService_createClient_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/createClientResponse\"
+        message=\"tns:IClientService_createClient_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"updateClient\">\r\n\t\t\t<wsdl:input wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/updateClient\"
+        message=\"tns:IClientService_updateClient_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/updateClientResponse\"
+        message=\"tns:IClientService_updateClient_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"deleteClient\">\r\n\t\t\t<wsdl:input wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/deleteClient\"
+        message=\"tns:IClientService_deleteClient_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/deleteClientResponse\"
+        message=\"tns:IClientService_deleteClient_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"getClient\">\r\n\t\t\t<wsdl:input wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/getClient\"
+        message=\"tns:IClientService_getClient_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/getClientResponse\"
+        message=\"tns:IClientService_getClient_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"createPaymentMethod\">\r\n\t\t\t<wsdl:input wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/createPaymentMethod\"
+        message=\"tns:IClientService_createPaymentMethod_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/createPaymentMethodResponse\"
+        message=\"tns:IClientService_createPaymentMethod_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"updatePaymentMethod\">\r\n\t\t\t<wsdl:input wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/updatePaymentMethod\"
+        message=\"tns:IClientService_updatePaymentMethod_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/updatePaymentMethodResponse\"
+        message=\"tns:IClientService_updatePaymentMethod_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"deletePaymentMethod\">\r\n\t\t\t<wsdl:input wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/deletePaymentMethod\"
+        message=\"tns:IClientService_deletePaymentMethod_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/deletePaymentMethodResponse\"
+        message=\"tns:IClientService_deletePaymentMethod_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"getPaymentMethod\">\r\n\t\t\t<wsdl:input wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/getPaymentMethod\"
+        message=\"tns:IClientService_getPaymentMethod_InputMessage\"/>\r\n\t\t\t<wsdl:output
+        wsaw:Action=\"https://ws.paymentsgateway.net/v1/IClientService/getPaymentMethodResponse\"
+        message=\"tns:IClientService_getPaymentMethod_OutputMessage\"/>\r\n\t\t</wsdl:operation>\r\n\t</wsdl:portType>\r\n\t<wsdl:binding
+        name=\"WSHttpBinding_IClientService\" type=\"tns:IClientService\">\r\n\t\t<wsp:PolicyReference
+        URI=\"#WSHttpBinding_IClientService_policy\"/>\r\n\t\t<soap12:binding transport=\"http://schemas.xmlsoap.org/soap/http\"/>\r\n\t\t<wsdl:operation
+        name=\"createClient\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/createClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"updateClient\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/updateClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"deleteClient\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/deleteClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"getClient\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/getClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"createPaymentMethod\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/createPaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"updatePaymentMethod\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/updatePaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"deletePaymentMethod\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/deletePaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"getPaymentMethod\">\r\n\t\t\t<soap12:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/getPaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap12:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap12:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t</wsdl:binding>\r\n\t<wsdl:binding
+        name=\"BasicHttpBinding_IClientService\" type=\"tns:IClientService\">\r\n\t\t<wsp:PolicyReference
+        URI=\"#BasicHttpBinding_IClientService_policy\"/>\r\n\t\t<soap:binding transport=\"http://schemas.xmlsoap.org/soap/http\"/>\r\n\t\t<wsdl:operation
+        name=\"createClient\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/createClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"updateClient\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/updateClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"deleteClient\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/deleteClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"getClient\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/getClient\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"createPaymentMethod\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/createPaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"updatePaymentMethod\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/updatePaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"deletePaymentMethod\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/deletePaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t\t<wsdl:operation
+        name=\"getPaymentMethod\">\r\n\t\t\t<soap:operation soapAction=\"https://ws.paymentsgateway.net/v1/IClientService/getPaymentMethod\"
+        style=\"document\"/>\r\n\t\t\t<wsdl:input>\r\n\t\t\t\t<soap:body use=\"literal\"/>\r\n\t\t\t</wsdl:input>\r\n\t\t\t<wsdl:output>\r\n\t\t\t\t<soap:body
+        use=\"literal\"/>\r\n\t\t\t</wsdl:output>\r\n\t\t</wsdl:operation>\r\n\t</wsdl:binding>\r\n\t<wsdl:service
+        name=\"ClientService\">\r\n\t\t<wsdl:port name=\"WSHttpBinding_IClientService\"
+        binding=\"tns:WSHttpBinding_IClientService\">\r\n\t\t\t<soap12:address location=\"https://sandbox.paymentsgateway.net/ws/Client.svc\"/>\r\n\t\t\t<wsa10:EndpointReference>\r\n\t\t\t\t<wsa10:Address>https://sandbox.paymentsgateway.net/ws/Client.svc</wsa10:Address>\r\n\t\t\t</wsa10:EndpointReference>\r\n\t\t</wsdl:port>\r\n\t\t<wsdl:port
+        name=\"BasicHttpBinding_IClientService\" binding=\"tns:BasicHttpBinding_IClientService\">\r\n\t\t\t<soap:address
+        location=\"https://sandbox.paymentsgateway.net/ws/Client.svc/basic\"/>\r\n\t\t</wsdl:port>\r\n\t</wsdl:service>\r\n</wsdl:definitions>"
+    http_version: 
+  recorded_at: Wed, 29 Apr 2015 08:16:33 GMT
+- request:
+    method: post
+    uri: https://sandbox.paymentsgateway.net/ws/Client.svc/basic
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="https://ws.paymentsgateway.net/v1"
+        xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"><env:Body><tns:createPaymentMethod><tns:ticket><tns:APILoginID>q71T4Wt6Dl</tns:APILoginID><tns:TSHash>c1472e7894c9e05261e3a509d1585c78</tns:TSHash><tns:UTCTime>635658921914537650</tns:UTCTime></tns:ticket><tns:payment><tns:MerchantID>174641</tns:MerchantID><tns:ClientID>1546338</tns:ClientID><tns:AcctHolderName>John
+        Black</tns:AcctHolderName><tns:CcCardNumber>5555555555554444</tns:CcCardNumber><tns:CcExpirationDate>201609</tns:CcExpirationDate><tns:CcCardType>MAST</tns:CcCardType></tns:payment></tns:createPaymentMethod></env:Body></env:Envelope>
+    headers:
+      Soapaction:
+      - ! '"https://ws.paymentsgateway.net/v1/IClientService/createPaymentMethod"'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '802'
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Microsoft-IIS/7.5
+      Content-Type:
+      - text/xml; charset=utf-8
+      Date:
+      - Wed, 29 Apr 2015 08:16:35 GMT
+      Set-Cookie:
+      - X-Mapping-gbooldlg=DFC7CDDF5472E60DACDF1BDF84C0518B;path=/
+      X-Powered-By:
+      - ASP.NET
+      Content-Length:
+      - '257'
+    body:
+      encoding: US-ASCII
+      string: <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body><createPaymentMethodResponse
+        xmlns="https://ws.paymentsgateway.net/v1"><createPaymentMethodResult>1864269</createPaymentMethodResult></createPaymentMethodResponse></s:Body></s:Envelope>
+    http_version: 
+  recorded_at: Wed, 29 Apr 2015 08:16:35 GMT
+recorded_with: VCR 2.9.3

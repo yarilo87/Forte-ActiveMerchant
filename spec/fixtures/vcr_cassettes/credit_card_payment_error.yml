@@ -1,0 +1,76 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.paymentsgateway.net/cgi-bin/posttest.pl
+    body:
+      encoding: US-ASCII
+      string: ! 'pg_merchant_id=174641
+
+        pg_password=2V2WS0al
+
+        pg_transaction_type=10
+
+        ecom_payment_card_type=
+
+        ecom_payment_card_number=
+
+        ecom_payment_card_expdate_month=
+
+        ecom_payment_card_expdate_year=
+
+        pg_total_amount=0.4
+
+        ecom_billto_postal_name_first=Yaroslav
+
+        ecom_billto_postal_name_last=Keda
+
+        endofdata&'
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 29 Apr 2015 19:51:33 GMT
+      Server:
+      - Apache/2.2.22 (Ubuntu)
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/html
+    body:
+      encoding: US-ASCII
+      string: ! 'pg_response_type=E
+
+        pg_response_code=F01
+
+        pg_response_description=MANDITORY FIELD MISSING:ecom_payment_card_type,MANDITORY
+        FIELD MISSING:ecom_payment_card_number,MANDITORY FIELD MISSING:ecom_payment_card_expdate_year,MANDITORY
+        FIELD MISSING:ecom_payment_card_expdate_month
+
+        pg_trace_number=E9A115BF-A6FA-49F2-8553-77CFB692BF65
+
+        pg_merchant_id=174641
+
+        pg_transaction_type=10
+
+        pg_total_amount=0.4
+
+        ecom_billto_postal_name_first=Yaroslav
+
+        ecom_billto_postal_name_last=Keda
+
+        endofdata
+
+'
+    http_version: 
+  recorded_at: Wed, 29 Apr 2015 19:51:33 GMT
+recorded_with: VCR 2.9.3

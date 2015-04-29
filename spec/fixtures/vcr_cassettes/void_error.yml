@@ -1,0 +1,135 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.paymentsgateway.net/cgi-bin/posttest.pl
+    body:
+      encoding: US-ASCII
+      string: ! 'pg_merchant_id=174641
+
+        pg_password=2V2WS0al
+
+        pg_transaction_type=11
+
+        ecom_payment_card_type=visa
+
+        ecom_payment_card_number=4111111111111111
+
+        ecom_payment_card_expdate_month=9
+
+        ecom_payment_card_expdate_year=2016
+
+        pg_total_amount=100
+
+        ecom_billto_postal_name_first=Yaroslav
+
+        ecom_billto_postal_name_last=Keda
+
+        endofdata&'
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 29 Apr 2015 19:51:45 GMT
+      Server:
+      - Apache/2.2.22 (Ubuntu)
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/html
+    body:
+      encoding: US-ASCII
+      string: ! 'pg_response_type=A
+
+        pg_response_code=A01
+
+        pg_response_description=TEST APPROVAL
+
+        pg_authorization_code=123456
+
+        pg_trace_number=67C82C25-B408-4361-93E1-2EB9EFC2A1B5
+
+        pg_avs_code=Y
+
+        pg_cvv_code=M
+
+        pg_merchant_id=174641
+
+        pg_transaction_type=11
+
+        pg_total_amount=100.0
+
+        ecom_billto_postal_name_first=Yaroslav
+
+        ecom_billto_postal_name_last=Keda
+
+        endofdata
+
+'
+    http_version: 
+  recorded_at: Wed, 29 Apr 2015 19:51:45 GMT
+- request:
+    method: post
+    uri: https://www.paymentsgateway.net/cgi-bin/posttest.pl
+    body:
+      encoding: US-ASCII
+      string: ! 'pg_merchant_id=174641
+
+        pg_password=2V2WS0al
+
+        pg_transaction_type=14
+
+        pg_original_authorization_code=123456
+
+        pg_original_trace_number=
+
+        endofdata&'
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 29 Apr 2015 19:51:46 GMT
+      Server:
+      - Apache/2.2.22 (Ubuntu)
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/html
+    body:
+      encoding: US-ASCII
+      string: ! 'pg_response_type=E
+
+        pg_response_code=F01
+
+        pg_response_description=MANDITORY FIELD MISSING:pg_original_trace_number
+
+        pg_trace_number=19B295A8-51B9-4B35-9A60-41777202322D
+
+        pg_merchant_id=174641
+
+        pg_transaction_type=14
+
+        endofdata
+
+'
+    http_version: 
+  recorded_at: Wed, 29 Apr 2015 19:51:46 GMT
+recorded_with: VCR 2.9.3

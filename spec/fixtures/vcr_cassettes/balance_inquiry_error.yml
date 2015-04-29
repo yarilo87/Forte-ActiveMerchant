@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.paymentsgateway.net/cgi-bin/posttest.pl
+    body:
+      encoding: US-ASCII
+      string: ! 'pg_merchant_id=174641
+
+        pg_password=2V2WS0al
+
+        pg_transaction_type=16
+
+        pg_total_amount=100
+
+        pg_original_authorization_code=
+
+        pg_original_trace_number=
+
+        endofdata&'
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 29 Apr 2015 19:51:57 GMT
+      Server:
+      - Apache/2.2.22 (Ubuntu)
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/html
+    body:
+      encoding: US-ASCII
+      string: ! 'pg_response_type=E
+
+        pg_response_code=F01
+
+        pg_response_description=MANDITORY FIELD MISSING:pg_original_trace_number,MANDITORY
+        FIELD MISSING:pg_original_authorization_code
+
+        pg_trace_number=85CC7D62-DAFB-4DE9-BDD5-95A6F35D0C14
+
+        pg_merchant_id=174641
+
+        pg_transaction_type=16
+
+        pg_total_amount=100.0
+
+        endofdata
+
+'
+    http_version: 
+  recorded_at: Wed, 29 Apr 2015 19:51:57 GMT
+recorded_with: VCR 2.9.3

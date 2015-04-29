@@ -1,7 +1,13 @@
 require 'spec_helper'
+require 'vcr'
 
-describe ActiveMerchant::Billing::WebServiceAuthentication do
-  subject {  ActiveMerchant::Billing::WebServiceAuthentication.new(merchant_id: '171673', api_login_id: 'F3cnU00H5s', secure_transaction_key: 'Q870agdTS', test: true) }
+VCR.configure do |config|
+  config.cassette_library_dir = "./spec/fixtures/vcr_cassettes"
+  config.hook_into :webmock # or :fakeweb
+end
+
+describe ActiveMerchant::Billing::Gateways::WebServiceAuthentication do
+  subject {  ActiveMerchant::Billing::Gateways::WebServiceAuthentication.new(merchant_id: '174641', api_login_id: 'q71T4Wt6Dl', secure_transaction_key: 't83AXt51Rh', test: true) }
   let(:options) {
   	{
 	  	first_name: "Bob", last_name: "Brown"
@@ -20,10 +26,14 @@ describe ActiveMerchant::Billing::WebServiceAuthentication do
     }
 
     it 'gets a successful response' do
-      expect(output_for_correct[:create_client_response][:create_client_result]).to be
+      VCR.use_cassette "create client" do
+        expect(output_for_correct[:create_client_response][:create_client_result]).to be
+      end
     end
     it 'gets an error response when no user name provided' do
-      expect(output_for_incorrect[:fault][:faultstring]).to eq("Company name is required.")
+      VCR.use_cassette "create client with error" do
+        expect(output_for_incorrect[:fault][:faultstring]).to eq("Company name is required.")
+      end
     end
   end
   describe '#delete_client' do
@@ -42,10 +52,14 @@ describe ActiveMerchant::Billing::WebServiceAuthentication do
       subject.delete_client
     }
     it 'gets a successful response' do
-      expect(output_for_correct[:delete_client_response][:delete_client_result]).to eq client_id
+      VCR.use_cassette "delete client" do
+        expect(output_for_correct[:delete_client_response][:delete_client_result]).to eq client_id
+      end
     end
     it 'gets an error response when no client_id provided' do
-      expect(output_for_incorrect[:fault][:faultstring]).to be
+      VCR.use_cassette "delete client with error" do
+        expect(output_for_incorrect[:fault][:faultstring]).to be
+      end
     end
   end
   describe '#update_client' do
@@ -64,10 +78,14 @@ describe ActiveMerchant::Billing::WebServiceAuthentication do
       subject.update_client
     }
     it 'gets a successful response' do
-      expect(output_for_correct[:update_client_response][:update_client_result]).to eq client_id
+      VCR.use_cassette "update client" do
+        expect(output_for_correct[:update_client_response][:update_client_result]).to eq client_id
+      end
     end
     it 'gets an error response when no client_id provided' do
-      expect(output_for_incorrect[:fault][:faultstring]).to be
+      VCR.use_cassette "update client with error" do
+        expect(output_for_incorrect[:fault][:faultstring]).to be
+      end
     end
   end
   describe '#get_client' do
@@ -83,7 +101,9 @@ describe ActiveMerchant::Billing::WebServiceAuthentication do
       subject.get_client(client_id: client_id)
     }
     it 'gets a successful response' do
-      expect(output_for_correct[:get_client_response][:get_client_result]).to be
+      VCR.use_cassette "get client" do
+        expect(output_for_correct[:get_client_response][:get_client_result]).to be
+      end
     end
   end
   describe '#create_payment_method' do
@@ -126,20 +146,26 @@ describe ActiveMerchant::Billing::WebServiceAuthentication do
     let(:e_check_payment) {
       {
         acct_holder_name: 'John Black',
-        ecom_payment_check_account: "987654322",
+        ecom_payment_check_account: "1111111111111",
         ecom_payment_check_trn: "021000021",
         ecom_payment_check_account_type: :checking,
         client_id: client_id
       }
     }
     it 'gets a successful response for correct credit card payment' do
-      expect(output_for_correct_credit_card_payment[:create_payment_method_response][:create_payment_method_result]).to be
+      VCR.use_cassette "create cc payment method" do
+        expect(output_for_correct_credit_card_payment[:create_payment_method_response][:create_payment_method_result]).to be
+      end
     end
     it 'gets a successful response for correct echeck payment' do
-      expect(output_for_correct_e_check_payment[:create_payment_method_response][:create_payment_method_result]).to be
+      VCR.use_cassette "create echeck payment method" do
+        expect(output_for_correct_credit_card_payment[:create_payment_method_response][:create_payment_method_result]).to be
+      end
     end
     it 'gets an error response when no client_id provided' do
-      expect(output_for_incorrect_credit_card_payment[:fault][:faultstring]).to be
+      VCR.use_cassette "create payment method failed" do
+        expect(output_for_incorrect_credit_card_payment[:fault][:faultstring]).to be
+      end
     end
   end
   describe '#update_payment_method' do
@@ -200,10 +226,14 @@ describe ActiveMerchant::Billing::WebServiceAuthentication do
       }
     }
     it 'gets a successful response for credit card payment' do
-      expect(output_for_correct_credit_card_payment[:update_payment_method_response][:update_payment_method_result]).to eq credit_card_payment_method_id
+      VCR.use_cassette "update cc payment method" do
+        expect(output_for_correct_credit_card_payment[:update_payment_method_response][:update_payment_method_result]).to eq credit_card_payment_method_id
+      end
     end
     it 'gets a successful response e check payment' do
-      expect(output_for_correct_e_check_payment[:update_payment_method_response][:update_payment_method_result]).to eq e_check_method_id
+      VCR.use_cassette "update echeck payment method" do
+        expect(output_for_correct_e_check_payment[:update_payment_method_response][:update_payment_method_result]).to eq e_check_method_id
+      end
     end
   end
   describe '#delete_payment_method' do
@@ -233,7 +263,9 @@ describe ActiveMerchant::Billing::WebServiceAuthentication do
     }
 
     it 'gets a successful response' do
-      expect(output_for_correct[:delete_payment_method_response][:delete_payment_method_result]).to be
+      VCR.use_cassette "delete payment method" do
+        expect(output_for_correct[:delete_payment_method_response][:delete_payment_method_result]).to be
+      end
     end
   end
   describe '#get_payment_method' do
@@ -263,7 +295,9 @@ describe ActiveMerchant::Billing::WebServiceAuthentication do
     }
 
     it 'gets a successful response' do
-      expect(output_for_correct[:get_payment_method_response][:get_payment_method_result]).to be
+      VCR.use_cassette "get payment method" do
+        expect(output_for_correct[:get_payment_method_response][:get_payment_method_result]).to be
+      end
     end
   end
 end

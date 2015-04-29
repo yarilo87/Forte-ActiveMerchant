@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.paymentsgateway.net/cgi-bin/posttest.pl
+    body:
+      encoding: US-ASCII
+      string: ! 'pg_merchant_id=174641
+
+        pg_password=2V2WS0al
+
+        pg_transaction_type=10
+
+        pg_client_id=aaa
+
+        pg_total_amount=2.4
+
+        endofdata&'
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 29 Apr 2015 19:51:32 GMT
+      Server:
+      - Apache/2.2.22 (Ubuntu)
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/html
+    body:
+      encoding: US-ASCII
+      string: ! 'pg_response_type=E
+
+        pg_response_code=F04
+
+        pg_response_description=INVALID FIELD VALUE:pg_client_id,MANDITORY FIELD MISSING:ecom_billto_postal_name_first,MANDITORY
+        FIELD MISSING:ecom_billto_postal_name_last
+
+        pg_trace_number=325FC9C3-699C-4E4C-A211-549B170A0AEE
+
+        pg_merchant_id=174641
+
+        pg_transaction_type=10
+
+        pg_client_id=-9
+
+        pg_total_amount=2.4
+
+        endofdata
+
+'
+    http_version: 
+  recorded_at: Wed, 29 Apr 2015 19:51:32 GMT
+recorded_with: VCR 2.9.3
